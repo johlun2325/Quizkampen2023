@@ -54,10 +54,8 @@ public class GameGUI extends JFrame implements ActionListener {
         setWaitPanel();
         setFinalPanel();
 
-        this.add(waitPanel);
-//        this.add(startPanel);
-//        this.add(categoryPanel);
-//        this.add(waitPanel);
+        this.add(startPanel);
+
 
         this.setTitle("Välkommen till Quizkampen");
         this.setSize(800, 600);

@@ -34,7 +34,11 @@ public class Client {
         try {
             fromServer = in.readLine();
             if (fromServer.equals("Ansluten")) {
-                out.println("Namn" + gui.getName()); //
+                gui = new GameGUI();
+                out.println("Namn");
+                System.out.println("namn");
+
+                Thread.sleep(5000);
             }
 
 
@@ -50,6 +54,7 @@ public class Client {
 
 
     public static void main(String[] args) {
-        new Client();
+        Client client = new Client();
+        client.play();
     }
 }
