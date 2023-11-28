@@ -9,41 +9,42 @@ import java.awt.event.ActionListener;
 public class GameGUI extends JFrame implements ActionListener {
 
 
-    JPanel startPanel;
-    JLabel namePromptText;
-    JLabel gameNameLabel;
-    JTextField nameField;
-    JButton submitButton;
+    protected JPanel startPanel;
+    protected JLabel namePromptText;
+    protected JLabel gameNameLabel;
+    protected JTextField nameField;
+    protected JButton submitButton;
 
-    JPanel categoryPanel;
-    JLabel chooseCategoryLabel;
-    JButton categoryBtnA;
-    JButton categoryBtnB;
-    JButton categoryBtnC;
+    protected JPanel categoryPanel;
+    protected JLabel chooseCategoryLabel;
+    protected JButton categoryBtnA;
+    protected JButton categoryBtnB;
+    protected JButton categoryBtnC;
 
-    JPanel questionPanel;
-    JLabel questionLabel;
-    JButton answerA;
-    JButton answerB;
-    JButton answerC;
-    JButton answerD;
+    protected JPanel questionPanel;
+    protected JLabel questionLabel;
+    protected JButton answerA;
+    protected JButton answerB;
+    protected JButton answerC;
+    protected JButton answerD;
 
-    JPanel waitPanel;
-    JPanel waitPanelNorth;
-    JPanel waitPanelSouth;
-    JLabel waitLabel;
-    JButton waitPlayBtn; //default disabled
+    protected JPanel waitPanel;
+    protected JPanel waitPanelNorth;
+    protected JPanel waitPanelSouth;
+    protected JLabel waitLabel;
+    protected JButton waitPlayBtn; //default disabled
 
-    JPanel finalPanel;
-    JPanel finalSouth;
-    JPanel finalNorth;
-    JLabel playerPoints1;
-    JLabel playerPoints2;
-    JLabel winnerLabel;
-    JButton playAgainBtn;
-    JButton quitGameBtn;
+    protected JPanel finalPanel;
+    protected JPanel finalSouth;
+    protected JPanel finalNorth;
+    protected JLabel playerPoints1;
+    protected JLabel playerPoints2;
+    protected JLabel winnerLabel;
+    protected JButton playAgainBtn;
+    protected JButton quitGameBtn;
 
     protected String name = "";
+    protected String chosenCategory = "";
 
     public GameGUI() {
         setStartPanel(); //**
@@ -102,10 +103,14 @@ public class GameGUI extends JFrame implements ActionListener {
         chooseCategoryLabel = new JLabel("Välj kategori");
         chooseCategoryLabel.setFont(new Font("Tahoma", Font.BOLD, 35));
 
-        //actionlistener
         categoryBtnA = new JButton("A");
         categoryBtnB = new JButton("B");
         categoryBtnC = new JButton("C");
+
+        //sparar knappvalet till variabel
+        categoryBtnA.addActionListener(e -> chosenCategory = categoryBtnA.getText());
+        categoryBtnB.addActionListener(e -> chosenCategory = categoryBtnB.getText());
+        categoryBtnC.addActionListener(e -> chosenCategory = categoryBtnC.getText());
 
         categoryPanel.add(chooseCategoryLabel);
         categoryPanel.add(categoryBtnA);
