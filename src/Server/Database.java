@@ -20,6 +20,16 @@ public class Database {
     protected List<Question> Sport = new ArrayList<>();
     protected List<Question> Programming = new ArrayList<>();
 
+
+    public List<Question> getHistory() {
+        return History;
+    }
+
+    public List<Question> getMusic() {
+        return Music;
+    }
+
+
     //history 4 questions
     protected Question historyQ1 = new Question(
             "What event marked the beginning of World War I?",
