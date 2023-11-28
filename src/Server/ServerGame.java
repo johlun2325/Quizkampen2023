@@ -29,7 +29,7 @@ public class ServerGame extends Thread {
             inputStringFromClient = currentPlayer.receiveString();
 
             if (inputStringFromClient.startsWith("Name")) {
-                currentPlayer.setPlayer(inputStringFromClient.substring(4)); //Spara namn
+                currentPlayer.setPlayer(inputStringFromClient.substring(4).trim()); //Spara namn
 
                 currentPlayer.sendString("Kategori");
 
