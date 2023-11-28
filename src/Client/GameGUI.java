@@ -3,43 +3,49 @@ package Client;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class GameGUI extends JFrame {
+public class GameGUI extends JFrame implements ActionListener {
 
 
-    JPanel startPanel;
-    JLabel namePromptText;
-    JLabel gameNameLabel;
-    JTextField nameField;
-    JButton submitButton;
+    protected JPanel startPanel;
+    protected JLabel namePromptText;
+    protected JLabel gameNameLabel;
+    protected JTextField nameField;
+    protected JButton submitButton;
 
-    JPanel categoryPanel;
-    JLabel chooseCategoryLabel;
-    JButton categoryBtnA;
-    JButton categoryBtnB;
-    JButton categoryBtnC;
+    protected JPanel categoryPanel;
+    protected JLabel chooseCategoryLabel;
+    protected JButton categoryBtnA;
+    protected JButton categoryBtnB;
+    protected JButton categoryBtnC;
 
-    JPanel questionPanel;
-    JLabel questionLabel;
-    JButton answerA;
-    JButton answerB;
-    JButton answerC;
-    JButton answerD;
+    protected JPanel questionPanel;
+    protected JLabel questionLabel;
+    protected JButton answerA;
+    protected JButton answerB;
+    protected JButton answerC;
+    protected JButton answerD;
 
-    JPanel waitPanel;
-    JPanel waitPanelNorth;
-    JPanel waitPanelSouth;
-    JLabel waitLabel;
-    JButton waitPlayBtn; //default disabled
+    protected JPanel waitPanel;
+    protected JPanel waitPanelNorth;
+    protected JPanel waitPanelSouth;
+    protected JLabel waitLabel;
+    protected JButton waitPlayBtn; //default disabled
 
-    JPanel finalPanel;
-    JPanel finalSouth;
-    JPanel finalNorth;
-    JLabel playerPoints1;
-    JLabel playerPoints2;
-    JLabel winnerLabel;
-    JButton playAgainBtn;
-    JButton quitGameBtn;
+    protected JPanel finalPanel;
+    protected JPanel finalSouth;
+    protected JPanel finalNorth;
+    protected JLabel playerPoints1;
+    protected JLabel playerPoints2;
+    protected JLabel winnerLabel;
+    protected JButton playAgainBtn;
+    protected JButton quitGameBtn;
+
+    protected String name = "";
+    protected String chosenCategory = "";
+    protected boolean playAgain = false;
 
     public GameGUI() {
         setStartPanel(); //**
@@ -48,17 +54,18 @@ public class GameGUI extends JFrame {
         setWaitPanel();
         setFinalPanel();
 
-        this.add(startPanel);
+        this.add(waitPanel);
 //        this.add(startPanel);
 //        this.add(categoryPanel);
 //        this.add(waitPanel);
 
-
+        this.setTitle("Välkommen till Quizkampen");
         this.setSize(800, 600);
         this.setResizable(false);
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setVisible(true);
+        updateGUI();
     }
 
     public void setStartPanel() {
@@ -76,10 +83,11 @@ public class GameGUI extends JFrame {
         nameField = new JTextField();
         nameField.setFont(new Font("Tahoma", Font.BOLD, 25));
         nameField.setHorizontalAlignment(JTextField.CENTER);
-       nameField.setPreferredSize(new Dimension(300,50));
+        nameField.setPreferredSize(new Dimension(300, 50));
 
         //actionlistener
         submitButton = new JButton("Spela");
+        submitButton.addActionListener(this);
 
         startPanel.add(gameNameLabel);
         startPanel.add(namePromptText);
@@ -96,10 +104,14 @@ public class GameGUI extends JFrame {
         chooseCategoryLabel = new JLabel("Välj kategori");
         chooseCategoryLabel.setFont(new Font("Tahoma", Font.BOLD, 35));
 
-        //actionlistener
         categoryBtnA = new JButton("A");
         categoryBtnB = new JButton("B");
         categoryBtnC = new JButton("C");
+
+        //sparar knappvalet till variabel
+        categoryBtnA.addActionListener(e -> chosenCategory = categoryBtnA.getText());
+        categoryBtnB.addActionListener(e -> chosenCategory = categoryBtnB.getText());
+        categoryBtnC.addActionListener(e -> chosenCategory = categoryBtnC.getText());
 
         categoryPanel.add(chooseCategoryLabel);
         categoryPanel.add(categoryBtnA);
@@ -119,14 +131,13 @@ public class GameGUI extends JFrame {
         questionPanel = new JPanel(new FlowLayout());
 
         questionLabel = new JLabel("Fråga här");
-        questionLabel.setFont(new Font("Tahoma", Font.BOLD,20));
-
+        questionLabel.setFont(new Font("Tahoma", Font.BOLD, 20));
 
 
     }
 
     public void setWaitPanel() {
-        waitPanel = new JPanel(new GridLayout(2,1));
+        waitPanel = new JPanel(new GridLayout(2, 1));
         waitPanelNorth = new JPanel(new FlowLayout(FlowLayout.CENTER));
         waitPanelSouth = new JPanel(new FlowLayout(FlowLayout.CENTER));
 
@@ -137,8 +148,10 @@ public class GameGUI extends JFrame {
 
         waitPlayBtn = new JButton("Spela");
         waitPlayBtn.setEnabled(false); //false tills får spela
-        waitPlayBtn.setPreferredSize(new Dimension(300,100));
+        waitPlayBtn.setPreferredSize(new Dimension(300, 100));
         waitPlayBtn.setHorizontalAlignment(JButton.CENTER);
+
+        waitPlayBtn.addActionListener(l-> this.add(questionPanel));
 
         waitPanelNorth.add(waitLabel);
         waitPanelSouth.add(waitPlayBtn);
@@ -148,8 +161,8 @@ public class GameGUI extends JFrame {
     }
 
     public void setFinalPanel() {
-        finalPanel = new JPanel(new GridLayout(2,1));
-        finalNorth = new JPanel(new GridLayout(3,1));
+        finalPanel = new JPanel(new GridLayout(2, 1));
+        finalNorth = new JPanel(new GridLayout(3, 1));
         finalSouth = new JPanel(new FlowLayout(FlowLayout.CENTER));
 
         playerPoints1 = new JLabel("Player1 poäng");
@@ -166,6 +179,10 @@ public class GameGUI extends JFrame {
         playAgainBtn = new JButton("Spela igen");
         quitGameBtn = new JButton("Avsluta");
 
+        playAgainBtn.addActionListener(l-> playAgain = true);
+        quitGameBtn.addActionListener(l-> System.exit(0));
+
+
         finalNorth.add(playerPoints1);
         finalNorth.add(playerPoints2);
         finalNorth.add(winnerLabel);
@@ -177,9 +194,32 @@ public class GameGUI extends JFrame {
         finalPanel.add(finalSouth);
     }
 
+    protected void updateGUI() {
+        this.revalidate();
+        this.repaint();
+    }
+
 
     public static void main(String[] args) {
         new GameGUI();
     }
 
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == submitButton){
+            if (name.isEmpty()) {
+                name = nameField.getText();
+                if (!name.isEmpty()) {
+                    SwingUtilities.invokeLater(() -> {
+                        this.setTitle("Player: " + name);
+                        updateGUI();
+                    });
+                } else {
+                    namePromptText.setText("Du måste ange ett namn");
+                    updateGUI();
+                }
+            }
+
+        }
+    }
 }
