@@ -1,10 +1,11 @@
 package UtilityClass;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public class Question {
+public class Question implements Serializable {
     /**Alla frågor innehåller
      * själva frågan,
      * 3 felaktiga svar,
