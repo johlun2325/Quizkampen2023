@@ -21,7 +21,9 @@ public class GameGUI extends JFrame implements ActionListener {
     protected JButton categoryBtnB;
     protected JButton categoryBtnC;
 
+    protected JPanel backgroundQuestionPanel;
     protected JPanel questionPanel;
+    protected JPanel choicePanel;
     protected JLabel questionLabel;
     protected JButton answerA;
     protected JButton answerB;
@@ -46,6 +48,7 @@ public class GameGUI extends JFrame implements ActionListener {
     protected String name = "";
     protected String chosenCategory = "";
     protected boolean playAgain = false;
+    protected String answerToQuestion = "";
 
     public GameGUI() {
         setStartPanel(); //**
@@ -54,7 +57,7 @@ public class GameGUI extends JFrame implements ActionListener {
         setWaitPanel();
         setFinalPanel();
 
-        this.add(waitPanel);
+        this.add(backgroundQuestionPanel);
 //        this.add(startPanel);
 //        this.add(categoryPanel);
 //        this.add(waitPanel);
@@ -121,20 +124,57 @@ public class GameGUI extends JFrame implements ActionListener {
     }
 
     public void setQuestionPanel() {
-//        JPanel questionPanel;
-//        JLabel questionLabel;
-//        JButton answerA;
-//        JButton answerB;
-//        JButton answerC;
-//        JButton answerD;
+        backgroundQuestionPanel = new JPanel(new BorderLayout());
+        questionPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        choicePanel = new JPanel(new GridLayout(2, 2));
 
-        questionPanel = new JPanel(new FlowLayout());
-
-        questionLabel = new JLabel("Fråga här");
+        questionLabel = new JLabel("Fråga");
         questionLabel.setFont(new Font("Tahoma", Font.BOLD, 20));
+
+        answerA = new JButton("Hej");
+        answerB = new JButton("Hej");
+        answerC = new JButton("Hej");
+        answerD = new JButton("Hej");
+
+        answerA.addActionListener(l -> {
+            answerToQuestion = answerA.getText();
+            disableAllButtons();
+        });
+
+        answerB.addActionListener(l -> {
+            answerToQuestion = answerB.getText();
+            disableAllButtons();
+        });
+
+        answerC.addActionListener(l -> {
+            answerToQuestion = answerC.getText();
+            disableAllButtons();
+        });
+
+        answerD.addActionListener(l -> {
+            answerToQuestion = answerD.getText();
+            disableAllButtons();
+        });
+
+
+
+        JButton[] buttons = {answerA, answerB, answerC, answerD};
+        for (JButton button : buttons) {
+            button.setFont(new Font("Tahoma", Font.BOLD, 15));
+            button.setPreferredSize(new Dimension(300, 80));
+
+            questionPanel.add(questionLabel, BorderLayout.NORTH);
+            choicePanel.add(button, BorderLayout.SOUTH);
+
+        }
+
+        questionPanel.add(questionLabel);
+        backgroundQuestionPanel.add(questionPanel, BorderLayout.NORTH);
+        backgroundQuestionPanel.add(choicePanel, BorderLayout.SOUTH);
 
 
     }
+
 
     public void setWaitPanel() {
         waitPanel = new JPanel(new GridLayout(2, 1));
@@ -151,7 +191,7 @@ public class GameGUI extends JFrame implements ActionListener {
         waitPlayBtn.setPreferredSize(new Dimension(300, 100));
         waitPlayBtn.setHorizontalAlignment(JButton.CENTER);
 
-        waitPlayBtn.addActionListener(l-> this.add(questionPanel));
+        waitPlayBtn.addActionListener(l -> this.add(questionPanel));
 
         waitPanelNorth.add(waitLabel);
         waitPanelSouth.add(waitPlayBtn);
@@ -179,8 +219,8 @@ public class GameGUI extends JFrame implements ActionListener {
         playAgainBtn = new JButton("Spela igen");
         quitGameBtn = new JButton("Avsluta");
 
-        playAgainBtn.addActionListener(l-> playAgain = true);
-        quitGameBtn.addActionListener(l-> System.exit(0));
+        playAgainBtn.addActionListener(l -> playAgain = true);
+        quitGameBtn.addActionListener(l -> System.exit(0));
 
 
         finalNorth.add(playerPoints1);
@@ -199,14 +239,18 @@ public class GameGUI extends JFrame implements ActionListener {
         this.repaint();
     }
 
-
-    public static void main(String[] args) {
-        new GameGUI();
+    private void disableAllButtons () {
+        answerA.setEnabled(false);
+        answerB.setEnabled(false);
+        answerC.setEnabled(false);
+        answerD.setEnabled(false);
     }
+
+
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == submitButton){
+        if (e.getSource() == submitButton) {
             if (name.isEmpty()) {
                 name = nameField.getText();
                 if (!name.isEmpty()) {
@@ -221,5 +265,8 @@ public class GameGUI extends JFrame implements ActionListener {
             }
 
         }
+    }
+    public static void main(String[] args) {
+        new GameGUI();
     }
 }
