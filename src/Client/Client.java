@@ -34,7 +34,7 @@ public class Client {
         try {
             fromServer = in.readLine();
             if (fromServer.equals("Ansluten")) {
-                out.println("Namn" + gui.getName());
+                out.println("Namn" + gui.getName()); //
             }
 
 
