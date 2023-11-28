@@ -45,6 +45,7 @@ public class GameGUI extends JFrame implements ActionListener {
 
     protected String name = "";
     protected String chosenCategory = "";
+    protected boolean playAgain = false;
 
     public GameGUI() {
         setStartPanel(); //**
@@ -53,7 +54,7 @@ public class GameGUI extends JFrame implements ActionListener {
         setWaitPanel();
         setFinalPanel();
 
-        this.add(startPanel);
+        this.add(waitPanel);
 //        this.add(startPanel);
 //        this.add(categoryPanel);
 //        this.add(waitPanel);
@@ -150,6 +151,8 @@ public class GameGUI extends JFrame implements ActionListener {
         waitPlayBtn.setPreferredSize(new Dimension(300, 100));
         waitPlayBtn.setHorizontalAlignment(JButton.CENTER);
 
+        waitPlayBtn.addActionListener(l-> this.add(questionPanel));
+
         waitPanelNorth.add(waitLabel);
         waitPanelSouth.add(waitPlayBtn);
 
@@ -175,6 +178,10 @@ public class GameGUI extends JFrame implements ActionListener {
 
         playAgainBtn = new JButton("Spela igen");
         quitGameBtn = new JButton("Avsluta");
+
+        playAgainBtn.addActionListener(l-> playAgain = true);
+        quitGameBtn.addActionListener(l-> System.exit(0));
+
 
         finalNorth.add(playerPoints1);
         finalNorth.add(playerPoints2);
