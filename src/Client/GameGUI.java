@@ -246,7 +246,21 @@ public class GameGUI extends JFrame implements ActionListener {
         answerD.setEnabled(false);
     }
 
+    public String getNameFromGui() {
+        return name;
+    }
 
+    public String getChosenCategoryFromGui() {
+        return chosenCategory;
+    }
+
+    public boolean isPlayAgainFromGui() {
+        return playAgain;
+    }
+
+    public String getAnswerToQuestionFromGui() {
+        return answerToQuestion;
+    }
 
     @Override
     public void actionPerformed(ActionEvent e) {
