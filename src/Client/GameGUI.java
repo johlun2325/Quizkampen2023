@@ -1,5 +1,7 @@
 package Client;
 
+import UtilityClass.Question;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
@@ -49,6 +51,8 @@ public class GameGUI extends JFrame implements ActionListener {
     protected String chosenCategory = "";
     protected boolean playAgain = false;
     protected String answerToQuestion = "";
+    protected boolean isCorrectAnswerToQuestion = false;
+
 
     public GameGUI() {
         setStartPanel(); //**
@@ -136,9 +140,12 @@ public class GameGUI extends JFrame implements ActionListener {
         answerC = new JButton("Hej");
         answerD = new JButton("Hej");
 
+
         answerA.addActionListener(l -> {
             answerToQuestion = answerA.getText();
             disableAllButtons();
+//            isCorrectAnswerToQuestion = isCorrectAnswer("Rätt svar från frågan", answerA.getText());
+            setColorToButtons(isCorrectAnswerToQuestion, answerA);
         });
 
         answerB.addActionListener(l -> {
@@ -246,7 +253,42 @@ public class GameGUI extends JFrame implements ActionListener {
         answerD.setEnabled(false);
     }
 
+    protected boolean isCorrectAnswer(Question question, String answer){
+        boolean isCorrectAnswer;
+        if (question.getCorrectAnswer().equalsIgnoreCase(answer)){
+            isCorrectAnswer = true;
+        }
+        else{
+            isCorrectAnswer = false;
+        }
+        return isCorrectAnswer;
+    }
 
+    protected void setColorToButtons(boolean isCorrectAnswer, JButton button){
+        if (isCorrectAnswer){
+            button.setBackground(Color.green);
+        }
+        else{
+            button.setBackground(Color.red);
+        }
+    }
+
+
+    public String getNameFromGui() {
+        return name;
+    }
+
+    public String getChosenCategoryFromGui() {
+        return chosenCategory;
+    }
+
+    public boolean isPlayAgainFromGui() {
+        return playAgain;
+    }
+
+    public String getAnswerToQuestionFromGui() {
+        return answerToQuestion;
+    }
 
     @Override
     public void actionPerformed(ActionEvent e) {
