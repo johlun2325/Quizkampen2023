@@ -38,7 +38,7 @@ public class Client {
                 out.println("Namn");
                 System.out.println("namn");
 
-                Thread.sleep(5000);
+                Thread.sleep(5000); //
             }
 
 
