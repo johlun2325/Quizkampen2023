@@ -3,8 +3,10 @@ package Client;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class GameGUI extends JFrame {
+public class GameGUI extends JFrame implements ActionListener {
 
 
     JPanel startPanel;
@@ -41,6 +43,8 @@ public class GameGUI extends JFrame {
     JButton playAgainBtn;
     JButton quitGameBtn;
 
+    protected String name = "";
+
     public GameGUI() {
         setStartPanel(); //**
         setCategoryPanel();
@@ -53,12 +57,13 @@ public class GameGUI extends JFrame {
 //        this.add(categoryPanel);
 //        this.add(waitPanel);
 
-
+        this.setTitle("Välkommen till Quizkampen");
         this.setSize(800, 600);
         this.setResizable(false);
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setVisible(true);
+        updateGUI();
     }
 
     public void setStartPanel() {
@@ -76,10 +81,11 @@ public class GameGUI extends JFrame {
         nameField = new JTextField();
         nameField.setFont(new Font("Tahoma", Font.BOLD, 25));
         nameField.setHorizontalAlignment(JTextField.CENTER);
-       nameField.setPreferredSize(new Dimension(300,50));
+        nameField.setPreferredSize(new Dimension(300, 50));
 
         //actionlistener
         submitButton = new JButton("Spela");
+        submitButton.addActionListener(this);
 
         startPanel.add(gameNameLabel);
         startPanel.add(namePromptText);
@@ -119,14 +125,13 @@ public class GameGUI extends JFrame {
         questionPanel = new JPanel(new FlowLayout());
 
         questionLabel = new JLabel("Fråga här");
-        questionLabel.setFont(new Font("Tahoma", Font.BOLD,20));
-
+        questionLabel.setFont(new Font("Tahoma", Font.BOLD, 20));
 
 
     }
 
     public void setWaitPanel() {
-        waitPanel = new JPanel(new GridLayout(2,1));
+        waitPanel = new JPanel(new GridLayout(2, 1));
         waitPanelNorth = new JPanel(new FlowLayout(FlowLayout.CENTER));
         waitPanelSouth = new JPanel(new FlowLayout(FlowLayout.CENTER));
 
@@ -137,7 +142,7 @@ public class GameGUI extends JFrame {
 
         waitPlayBtn = new JButton("Spela");
         waitPlayBtn.setEnabled(false); //false tills får spela
-        waitPlayBtn.setPreferredSize(new Dimension(300,100));
+        waitPlayBtn.setPreferredSize(new Dimension(300, 100));
         waitPlayBtn.setHorizontalAlignment(JButton.CENTER);
 
         waitPanelNorth.add(waitLabel);
@@ -148,8 +153,8 @@ public class GameGUI extends JFrame {
     }
 
     public void setFinalPanel() {
-        finalPanel = new JPanel(new GridLayout(2,1));
-        finalNorth = new JPanel(new GridLayout(3,1));
+        finalPanel = new JPanel(new GridLayout(2, 1));
+        finalNorth = new JPanel(new GridLayout(3, 1));
         finalSouth = new JPanel(new FlowLayout(FlowLayout.CENTER));
 
         playerPoints1 = new JLabel("Player1 poäng");
@@ -177,9 +182,32 @@ public class GameGUI extends JFrame {
         finalPanel.add(finalSouth);
     }
 
+    protected void updateGUI() {
+        this.revalidate();
+        this.repaint();
+    }
+
 
     public static void main(String[] args) {
         new GameGUI();
     }
 
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == submitButton){
+            if (name.isEmpty()) {
+                name = nameField.getText();
+                if (!name.isEmpty()) {
+                    SwingUtilities.invokeLater(() -> {
+                        this.setTitle("Player: " + name);
+                        updateGUI();
+                    });
+                } else {
+                    namePromptText.setText("Du måste ange ett namn");
+                    updateGUI();
+                }
+            }
+
+        }
+    }
 }
