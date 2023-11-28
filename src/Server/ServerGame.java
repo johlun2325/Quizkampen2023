@@ -33,12 +33,17 @@ public class ServerGame extends Thread {
 
                 currentPlayer.sendString("Kategori");
 
-                if (inputStringFromClient.equals("Music") || inputStringFromClient.equals("History")) {
-                    //prepareSendingQuestions()
-                    //player1.sendString(db.getHistory());
-                    player2.sendString("Music,History");
+                if (inputStringFromClient.equals("History")) {
+                    player1.sendObject(db.getHistory());
+                    player2.sendObject(db.getHistory());
 
+                } else if (inputStringFromClient.equals("Music")) {
+                    player1.sendObject(db.getMusic());
+                    player2.sendObject(db.getMusic());
                 }
+
+                //if (inputStringFromClient.equals("Rätt"))
+
 
 
 

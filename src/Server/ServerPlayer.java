@@ -1,41 +1,48 @@
 package Server;
 
 import javax.imageio.IIOException;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
+import java.io.*;
 import java.net.Socket;
 
 public class ServerPlayer {
     private ServerPlayer opponent;
-    private Socket socket;
+    final private Socket socket;
     private String player;
     private int point;
-    private BufferedReader input;
-    private PrintWriter output;
+    private BufferedReader stringInput;
+    private PrintWriter stringOutput;
 
 
-    public ServerPlayer(Socket socket, String player, int point) throws IOException {
+    public ServerPlayer(Socket socket, String player, int point) {
         this.socket = socket;
         this.player = player;
         this.point = point;
         try {
-            input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            output = new PrintWriter(socket.getOutputStream(), true);
+            //objectOutput = new ObjectOutputStream(socket.getOutputStream());
+            stringInput = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            stringOutput = new PrintWriter(socket.getOutputStream(), true);
 
-        } catch (IIOException e) {
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void sendObject(Object object) {
+        try {
+            ObjectOutputStream objectOutput = new ObjectOutputStream(socket.getOutputStream());
+            objectOutput.writeObject(object);
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     public void sendString(String mess) {
-        output.println(mess);
+        stringOutput.println(mess);
     }
 
     public String receiveString() {
         try {
-            return input.readLine();
+            return stringInput.readLine();
         } catch (IOException e) {
             System.out.println("Fel i receiveString");
             throw new RuntimeException(e);
