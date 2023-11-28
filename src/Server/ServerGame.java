@@ -28,10 +28,12 @@ public class ServerGame extends Thread {
         while (true) {
             inputStringFromClient = currentPlayer.receiveString();
 
-            if (inputStringFromClient.startsWith("Name")) {
-                currentPlayer.setPlayer(inputStringFromClient.substring(4).trim()); //Spara namn
+            if (inputStringFromClient.startsWith("Name:")) {
+                String name = inputStringFromClient.substring(5).trim(); //Spara namn
 
-                currentPlayer.sendString("Kategori");
+                currentPlayer.setPlayer(name);
+                currentPlayer.sendString("Category");
+                System.out.println("Name received " + name);
 
                 if (inputStringFromClient.equals("History")) {
                     player1.sendObject(db.getHistory());

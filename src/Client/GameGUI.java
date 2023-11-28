@@ -57,8 +57,8 @@ public class GameGUI extends JFrame implements ActionListener {
         setWaitPanel();
         setFinalPanel();
 
-        this.add(backgroundQuestionPanel);
-//        this.add(startPanel);
+        //this.add(backgroundQuestionPanel);
+        this.add(startPanel);
 //        this.add(categoryPanel);
 //        this.add(waitPanel);
 

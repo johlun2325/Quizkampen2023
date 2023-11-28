@@ -45,8 +45,9 @@ public class ServerPlayer {
             return stringInput.readLine();
         } catch (IOException e) {
             System.out.println("Fel i receiveString");
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
+        return "Fel i receiver";
     }
 
     public String getPlayer() {

@@ -35,10 +35,11 @@ public class Client {
             fromServer = in.readLine();
             if (fromServer.equals("Ansluten")) {
                 gui = new GameGUI();
-                out.println("Namn");
-                System.out.println("namn");
-
-                Thread.sleep(5000); //
+                while(gui.name.isEmpty()){
+                    Thread.sleep(1000);
+                }
+                out.println("Name:" + gui.name);
+                System.out.println("Name sent " + gui.name);
             }
 
 
