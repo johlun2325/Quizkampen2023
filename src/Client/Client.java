@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
-import java.net.UnknownHostException;
 
 public class Client {
 
@@ -40,8 +39,6 @@ public class Client {
             }
 
 
-        } catch (UnknownHostException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -65,27 +62,7 @@ public class Client {
     }
 
 
+    public static void main(String[] args) {
+        Client client = new Client();
+    }
 }
-
-//        try {
-////            fromServer = in.readLine();
-////            if (fromServer.equals("Ansluten")) {
-////                while (gui.name.isEmpty()) {
-////                    Thread.sleep(1000);
-////                }
-////                out.println("Name:" + gui.name);
-////                System.out.println("Name sent " + gui.name);
-//            }
-//
-//        } catch (Exception e) {  //FINALLY
-//            e.printStackTrace();
-//        }
-        return outString;
-                }
-
-
-public static void main(String[]args){
-        Client client=new Client();
-//        client.play(); // inte här väl?
-        }
-        }
