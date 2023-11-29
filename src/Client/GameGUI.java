@@ -423,7 +423,7 @@ public class GameGUI extends JFrame {
     public void showQuestionPanel() {
         setCategoryPanel();
         this.getContentPane().removeAll();
-        this.add(questionPanel);
+        this.add(backgroundQuestionPanel);
         updateGUI();
     }
     public void showWaitPanel() {
