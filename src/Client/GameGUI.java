@@ -56,6 +56,7 @@ public class GameGUI extends JFrame {
     protected boolean isCorrectAnswerToQuestion = false;
 
     TimerClass timer = new TimerClass();
+    private int points = 0;
 
 
     public GameGUI() {
@@ -165,12 +166,14 @@ public class GameGUI extends JFrame {
         chooseCategoryLabel.setFont(new Font("Tahoma", Font.BOLD, 35));
         chooseCategoryLabel.setForeground(Color.black);
 
-        categoryBtnA = new JButton("A");
+        categoryBtnA = new JButton("History");
         categoryBtnA.setBackground(Color.lightGray);
-        categoryBtnB = new JButton("B");
+        categoryBtnB = new JButton("Music");
         categoryBtnB.setBackground(Color.lightGray);
-        categoryBtnC = new JButton("C");
+        categoryBtnC = new JButton("Food");
         categoryBtnC.setBackground(Color.lightGray);
+
+
 
         categoryBtnA.setFocusable(false);
         categoryBtnB.setFocusable(false);
@@ -222,6 +225,7 @@ public class GameGUI extends JFrame {
             }
         });
         timerUpdater.start();
+        timerUpdater.stop();
         /////////////////////////////////////////////
 
 
@@ -242,9 +246,12 @@ public class GameGUI extends JFrame {
 
         answerA.addActionListener(l -> {
             answerToQuestion = answerA.getText();
+            points++;
             disableAllButtons();
+
 //            isCorrectAnswerToQuestion = isCorrectAnswer("Rätt svar från frågan", answerA.getText());
             setColorToButtons(isCorrectAnswerToQuestion, answerA);
+
         });
 
         answerB.addActionListener(l -> {
@@ -416,7 +423,7 @@ public class GameGUI extends JFrame {
     public void showQuestionPanel() {
         setCategoryPanel();
         this.getContentPane().removeAll();
-        this.add(questionPanel);
+        this.add(backgroundQuestionPanel);
         updateGUI();
     }
     public void showWaitPanel() {
@@ -431,4 +438,9 @@ public class GameGUI extends JFrame {
         this.add(finalPanel);
         updateGUI();
     }
+
+    public int getPoints() {
+        return points;
+    }
+
 }

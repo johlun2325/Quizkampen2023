@@ -40,7 +40,7 @@ public class ServerPlayer {
     }
 
     public void sendString(Object mess) throws IOException {
-        System.out.println("Sending mess med sendString" + mess.toString());
+        System.out.println("From ServerPlayer sendString():  " + mess.toString());
         objectOutput.writeObject(mess);
     }
 
