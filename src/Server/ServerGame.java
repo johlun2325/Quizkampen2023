@@ -25,7 +25,7 @@ public class ServerGame extends Thread {
         //player1.sendString("Category");
 
         //currentPlayer = player1;
-        String inputStringFromClient;
+        String inputStringFromClient = "";
 
         while (true) {
             inputStringFromClient = currentPlayer.receiveString();
