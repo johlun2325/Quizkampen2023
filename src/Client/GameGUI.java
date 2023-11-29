@@ -10,7 +10,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class GameGUI extends JFrame implements ActionListener {
+public class GameGUI extends JFrame {
 
 
     protected JPanel startPanel;
@@ -66,7 +66,7 @@ public class GameGUI extends JFrame implements ActionListener {
         setWaitPanel(); //*
         setFinalPanel(); //*
 
-        this.add(finalPanel);
+        this.add(startPanel);
 
         this.setTitle("Välkommen till Quizkampen");
         this.setSize(800, 600);
@@ -80,20 +80,20 @@ public class GameGUI extends JFrame implements ActionListener {
     public void setStartPanel() {
 
         startPanel = new JPanel(new BorderLayout());
-        startPanel.setBackground(new Color(72,127,56));
+        startPanel.setBackground(new Color(72, 127, 56));
         startPanel.setBorder(new EmptyBorder(100, 100, 100, 100));
         northStartPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        northStartPanel.setBackground(new Color(72,127,56));
+        northStartPanel.setBackground(new Color(72, 127, 56));
 
         centerStartPanel = new JPanel();
         centerStartPanel.setLayout(new BoxLayout(centerStartPanel, BoxLayout.Y_AXIS));
         centerStartPanel.setBorder(new EmptyBorder(60, 20, 220, 20));
-        centerStartPanel.setBackground(new Color(72,127,56));
+        centerStartPanel.setBackground(new Color(72, 127, 56));
 
         gameNameLabel = new JLabel("QUIZKAMPEN");
         gameNameLabel.setFont(new Font("Tahoma", Font.BOLD, 55));
         gameNameLabel.setHorizontalAlignment(JLabel.CENTER);
-        gameNameLabel.setBackground(new Color(72,127,56));
+        gameNameLabel.setBackground(new Color(72, 127, 56));
         gameNameLabel.setOpaque(true);
 
         namePromptText = new JLabel("Vänligen ange ett namn för att starta spelet");
@@ -108,13 +108,38 @@ public class GameGUI extends JFrame implements ActionListener {
         nameButton.setHorizontalAlignment(JButton.CENTER);
         nameButton.setFocusable(false);
         nameButton.setBackground(Color.lightGray);
-        nameButton.addActionListener(this);
 
         guestButton = new JButton("Gäst");
         guestButton.setHorizontalAlignment(JButton.CENTER);
         guestButton.setFocusable(false);
         guestButton.setBackground(Color.lightGray);
-        guestButton.addActionListener(this);
+
+        nameButton.addActionListener(l -> {
+
+            if (name.isEmpty()) {
+                name = nameField.getText();
+                if (!name.isEmpty()) {
+                        this.setTitle("Spelare: " + name);
+                        updateGUI();
+                } else {
+                    namePromptText.setText("Du måste ange ett namn\n " +
+                            "eller spela som gäst");
+                    updateGUI();
+                }
+            }
+
+        });
+
+        guestButton.addActionListener(l -> {
+            if (name.isEmpty()) {
+                name = guestButton.getText();
+                if (!name.isEmpty()) {
+                        this.setTitle("Spelare: " + name);
+                        updateGUI();
+                }
+            }
+        });
+
 
         northStartPanel.add(gameNameLabel);
         centerStartPanel.add(namePromptText);
@@ -130,7 +155,7 @@ public class GameGUI extends JFrame implements ActionListener {
 
         categoryPanel = new JPanel(new GridLayout(4, 1));
         categoryPanel.setBorder(new EmptyBorder(100, 220, 100, 220));
-        categoryPanel.setBackground(new Color(72,127,56));
+        categoryPanel.setBackground(new Color(72, 127, 56));
 
         chooseCategoryLabel = new JLabel("Välj kategori");
         chooseCategoryLabel.setFont(new Font("Tahoma", Font.BOLD, 35));
@@ -160,11 +185,11 @@ public class GameGUI extends JFrame implements ActionListener {
 
     public void setQuestionPanel() {
         backgroundQuestionPanel = new JPanel(new BorderLayout());
-        backgroundQuestionPanel.setBorder(new EmptyBorder(100,50,100,50));
-        backgroundQuestionPanel.setBackground(new Color(72,127,56));
+        backgroundQuestionPanel.setBorder(new EmptyBorder(100, 50, 100, 50));
+        backgroundQuestionPanel.setBackground(new Color(72, 127, 56));
 
         questionPanel = new JPanel(new FlowLayout());
-        questionPanel.setBackground(new Color(72,127,56));
+        questionPanel.setBackground(new Color(72, 127, 56));
         choicePanel = new JPanel(new GridLayout(2, 2));
 
         questionLabel = new JLabel("Fråga..........");
@@ -223,13 +248,13 @@ public class GameGUI extends JFrame implements ActionListener {
 
     public void setWaitPanel() {
         waitPanel = new JPanel(new GridLayout(2, 1));
-        waitPanel.setBorder(new EmptyBorder(100,50,100,50));
-        waitPanel.setBackground(new Color(72,127,56));
+        waitPanel.setBorder(new EmptyBorder(100, 50, 100, 50));
+        waitPanel.setBackground(new Color(72, 127, 56));
 
         waitPanelNorth = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        waitPanelNorth.setBackground(new Color(72,127,56));
+        waitPanelNorth.setBackground(new Color(72, 127, 56));
         waitPanelSouth = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        waitPanelSouth.setBackground(new Color(72,127,56));
+        waitPanelSouth.setBackground(new Color(72, 127, 56));
 
         waitLabel = new JLabel("Väntar på motspelare...");
         waitLabel.setFont(new Font("Tahoma", Font.BOLD, 30));
@@ -252,14 +277,14 @@ public class GameGUI extends JFrame implements ActionListener {
 
     public void setFinalPanel() {
         finalPanel = new JPanel(new GridLayout(2, 1));
-        finalPanel.setBorder(new EmptyBorder(100,100,100,100));
-        finalPanel.setBackground(new Color(72,127,56));
+        finalPanel.setBorder(new EmptyBorder(100, 100, 100, 100));
+        finalPanel.setBackground(new Color(72, 127, 56));
 
         finalNorth = new JPanel(new GridLayout(3, 1));
-        finalNorth.setBackground(new Color(72,127,56));
+        finalNorth.setBackground(new Color(72, 127, 56));
 
         finalSouth = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        finalSouth.setBackground(new Color(72,127,56));
+        finalSouth.setBackground(new Color(72, 127, 56));
 
         playerPoints1 = new JLabel("Player1 poäng");
         playerPoints2 = new JLabel("Player2 poäng");
@@ -340,36 +365,6 @@ public class GameGUI extends JFrame implements ActionListener {
 
     public String getAnswerToQuestionFromGui() {
         return answerToQuestion;
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == nameButton) {
-            if (name.isEmpty()) {
-                name = nameField.getText();
-                if (!name.isEmpty()) {
-                    SwingUtilities.invokeLater(() -> {
-                        this.setTitle("Spelare: " + name);
-                        updateGUI();
-                    });
-                } else {
-                    namePromptText.setText("Du måste ange ett namn\n "+
-                            "eller spela som gäst");
-                    updateGUI();
-                }
-            }
-        }
-        else if(e.getSource() == guestButton) {
-            if (name.isEmpty()) {
-                name = guestButton.getText();
-                if (!name.isEmpty()) {
-                    SwingUtilities.invokeLater(() -> {
-                        this.setTitle("Spelare: " + name);
-                        updateGUI();
-                    });
-                }
-            }
-        }
     }
 
     public static void main(String[] args) {
