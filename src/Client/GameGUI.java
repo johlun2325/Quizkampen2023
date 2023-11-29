@@ -227,6 +227,7 @@ public class GameGUI extends JFrame {
         });
         timerUpdater.start();
         timerUpdater.stop();
+
         /////////////////////////////////////////////
 
 
@@ -380,10 +381,9 @@ public class GameGUI extends JFrame {
     }
 
     private void disableAllButtons() {
-        answerA.setEnabled(false);
-        answerB.setEnabled(false);
-        answerC.setEnabled(false);
-        answerD.setEnabled(false);
+      //  answerA.setEnabled(false);
+      //  answerB.setEnabled(false);
+       //// answerD.setEnabled(false);
     }
 
     protected boolean isCorrectAnswer(Question question, String answer) {
@@ -397,11 +397,11 @@ public class GameGUI extends JFrame {
     }
 
     protected void setColorToButtons(boolean isCorrectAnswer, JButton button) {
-        if (isCorrectAnswer) {
-            button.setBackground(Color.green);
-        } else {
-            button.setBackground(Color.red);
-        }
+      //  if (isCorrectAnswer) {
+        //    button.setBackground(Color.green);
+     //   } else {
+      //      button.setBackground(Color.red);
+      //  }
     }
 
     public String getNameFromGui() {
@@ -448,12 +448,24 @@ public class GameGUI extends JFrame {
         updateGUI();
     }
 
-    public int getPoints() {
-        return points;
-    }
+
 
     public static void main(String[] args) {
         new GameGUI();
     }
+
+    public void updatePoints(int receivedPoints) {
+
+        points = receivedPoints;
+
+
+        playerPoints1.setText("Player 1 Points: " + points);
+        playerPoints2.setText("Player 2 Points: " + points);
+    }
+
+    public int getPoints() {
+        return points;
+    }
+
 
 }

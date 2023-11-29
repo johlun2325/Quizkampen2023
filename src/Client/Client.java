@@ -96,15 +96,24 @@ public class Client {
                         List<Question> questions = (List<Question>) list;
                         System.out.println("Client inne i if fromServer instanceof List, Questions mottagna");
 
-                        for (int i = 0; i < 2; i++) {
-                            while (gui.questionAnswered) {
-                                gui.questionLabel.setText(questions.get(i).getQuestion());
-                                gui.answerA.setText(questions.get(0).getCorrectAnswer());
-                                gui.answerB.setText(questions.get(0).getWrongAnswer1());
-                                gui.answerC.setText(questions.get(0).getWrongAnswer2());
-                                gui.answerD.setText(questions.get(0).getWrongAnswer3());
-                                gui.questionAnswered = false;
+                        for (int i = 0; i < 3; i++) {
+                            gui.questionLabel.setText(questions.get(i).getQuestion());
+                            gui.answerA.setText(questions.get(i).getCorrectAnswer());
+                            gui.answerB.setText(questions.get(i).getWrongAnswer1());
+                            gui.answerC.setText(questions.get(i).getWrongAnswer2());
+                            gui.answerD.setText(questions.get(i).getWrongAnswer3());
+                            gui.questionAnswered = false;
+                            gui.updateGUI();
+                            while (!gui.questionAnswered) {
+                                try {
+                                    Thread.sleep(500);
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                }
                             }
+                        }
+                        //gui.questionAnswered = false;
+                        //gui.updateGUI();
                         }
                     }
                     out.println("Points:" + gui.getPoints());
@@ -113,8 +122,26 @@ public class Client {
 
                     //här läser vi väl in frågorna?
 
-                } else if (fromServer.equals("Result")) {
+                } else if (fromServer instanceof String && ((String) fromServer).startsWith("Result")) {    //Hit borde vi komma nu
+                    String opponentPoints = ((String) fromServer).substring(6).trim();
+
+
                     gui.showFinalPanel();
+                    gui.playerPoints1.setText("Player1 poäng: " + gui.getPoints());
+                   gui.playerPoints2.setText("Player2 poäng: " + opponentPoints);
+
+                   int opponentP = Integer.parseInt(opponentPoints);
+
+
+
+                   if(gui.getPoints() > opponentP) {
+                       gui.winnerLabel.setText("Du vann!");
+                  }else if (gui.getPoints() < opponentP) {
+                     gui.winnerLabel.setText("Du förlorade!");
+                  }
+
+
+
 
 
                 }
