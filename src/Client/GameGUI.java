@@ -61,7 +61,7 @@ public class GameGUI extends JFrame {
         setWaitPanel(); //*
         setFinalPanel(); //*
 
-        this.add(finalPanel);
+        this.add(startPanel);
 
         this.setTitle("Välkommen till Quizkampen");
         this.setSize(800, 600);
@@ -193,7 +193,7 @@ public class GameGUI extends JFrame {
 
         questionLabel = new JLabel("Fråga..........");
         questionLabel.setFont(new Font("Tahoma", Font.BOLD, 20));
-        questionPanel.setForeground(Color.black);
+        questionLabel.setForeground(Color.black);
 
         answerA = new JButton("HejA");
         answerB = new JButton("HejB");
