@@ -215,9 +215,9 @@ public class GameGUI extends JFrame {
             times.setText("Tid kvar:" + timeRemaining);
 
             if (timeRemaining <= 0) {
-                // Timer reached 0, you can perform any additional actions here
-                times.setText("Time's up!");
-                ((Timer) e.getSource()).stop(); // Stop the timer
+
+                times.setText("Tiden gick ut!");
+                ((Timer) e.getSource()).stop();
 
             }
         });

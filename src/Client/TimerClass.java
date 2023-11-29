@@ -10,7 +10,7 @@ public class TimerClass {
     public GameGUI gamegui;
 
     public TimerClass() {
-        timeRemaining = 15;
+        timeRemaining = 20;
 
         timer = new Timer(1000, e -> {
             if (timeRemaining >0) {
@@ -23,7 +23,7 @@ public class TimerClass {
     }
 
     public void startTimer() {
-        timeRemaining = 15;
+        timeRemaining = 20;
         timer.start();
     }
 
