@@ -57,6 +57,7 @@ public class GameGUI extends JFrame {
 
     TimerClass timer = new TimerClass();
     private int points = 0;
+    boolean questionAnswered = false;
 
 
     public GameGUI() {
@@ -247,27 +248,33 @@ public class GameGUI extends JFrame {
         answerA.addActionListener(l -> {
             answerToQuestion = answerA.getText();
             points++;
+            questionAnswered = true;
             disableAllButtons();
 
 //            isCorrectAnswerToQuestion = isCorrectAnswer("Rätt svar från frågan", answerA.getText());
             setColorToButtons(true, answerA);
+            System.out.println("Poäng " + points);
 
         });
 
         answerB.addActionListener(l -> {
             answerToQuestion = answerB.getText();
+            questionAnswered = true;
             disableAllButtons();
             setColorToButtons(false, answerB);
+
         });
 
         answerC.addActionListener(l -> {
             answerToQuestion = answerC.getText();
+            questionAnswered = true;
             disableAllButtons();
             setColorToButtons(false, answerC);
         });
 
         answerD.addActionListener(l -> {
             answerToQuestion = answerD.getText();
+            questionAnswered = true;
             disableAllButtons();
             setColorToButtons(false, answerD);
         });
@@ -397,7 +404,6 @@ public class GameGUI extends JFrame {
         }
     }
 
-
     public String getNameFromGui() {
         return name;
     }
@@ -414,27 +420,27 @@ public class GameGUI extends JFrame {
         return answerToQuestion;
     }
 
-    public static void main(String[] args) {
-        new GameGUI();
-    }
     public void showCategoryPanel() {
         setCategoryPanel();
         this.getContentPane().removeAll();
         this.add(categoryPanel);
         updateGUI();
     }
+
     public void showQuestionPanel() {
         setCategoryPanel();
         this.getContentPane().removeAll();
         this.add(backgroundQuestionPanel);
         updateGUI();
     }
+
     public void showWaitPanel() {
         setCategoryPanel();
         this.getContentPane().removeAll();
         this.add(waitPanel);
         updateGUI();
     }
+
     public void showFinalPanel() {
         setCategoryPanel();
         this.getContentPane().removeAll();
@@ -444,6 +450,10 @@ public class GameGUI extends JFrame {
 
     public int getPoints() {
         return points;
+    }
+
+    public static void main(String[] args) {
+        new GameGUI();
     }
 
 }

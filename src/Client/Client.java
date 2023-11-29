@@ -15,7 +15,7 @@ public class Client {
     protected ObjectInputStream in;
     protected GameGUI gui;
     Question utilityQ;
-    boolean questionAnswered = false;
+    //boolean questionAnswered = false;
 
     public Client() {
 
@@ -97,17 +97,18 @@ public class Client {
                         System.out.println("Client inne i if fromServer instanceof List, Questions mottagna");
 
                         for (int i = 0; i < 2; i++) {
-                            if (questionAnswered)
+                            while (gui.questionAnswered) {
                                 gui.questionLabel.setText(questions.get(i).getQuestion());
-                            gui.answerA.setText(questions.get(0).getCorrectAnswer());
-                            gui.answerB.setText(questions.get(0).getWrongAnswer1());
-                            gui.answerC.setText(questions.get(0).getWrongAnswer2());
-                            gui.answerD.setText(questions.get(0).getWrongAnswer3());
-                            questionAnswered = false;
+                                gui.answerA.setText(questions.get(0).getCorrectAnswer());
+                                gui.answerB.setText(questions.get(0).getWrongAnswer1());
+                                gui.answerC.setText(questions.get(0).getWrongAnswer2());
+                                gui.answerD.setText(questions.get(0).getWrongAnswer3());
+                                gui.questionAnswered = false;
+                            }
                         }
                     }
-
-                    out.println("Här borde poäng skickas till Servern");
+                    out.println("Points:" + gui.getPoints());
+                    out.flush();
 
 
                     //här läser vi väl in frågorna?
