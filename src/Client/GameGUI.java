@@ -7,6 +7,8 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class GameGUI extends JFrame implements ActionListener {
 
@@ -64,7 +66,7 @@ public class GameGUI extends JFrame implements ActionListener {
         setWaitPanel(); //*
         setFinalPanel(); //*
 
-        this.add(startPanel);
+        this.add(finalPanel);
 
         this.setTitle("Välkommen till Quizkampen");
         this.setSize(800, 600);
@@ -105,11 +107,13 @@ public class GameGUI extends JFrame implements ActionListener {
         nameButton = new JButton("Spela");
         nameButton.setHorizontalAlignment(JButton.CENTER);
         nameButton.setFocusable(false);
+        nameButton.setBackground(Color.lightGray);
         nameButton.addActionListener(this);
 
         guestButton = new JButton("Gäst");
         guestButton.setHorizontalAlignment(JButton.CENTER);
         guestButton.setFocusable(false);
+        guestButton.setBackground(Color.lightGray);
         guestButton.addActionListener(this);
 
         northStartPanel.add(gameNameLabel);
@@ -128,13 +132,15 @@ public class GameGUI extends JFrame implements ActionListener {
         categoryPanel.setBorder(new EmptyBorder(100, 220, 100, 220));
         categoryPanel.setBackground(new Color(72,127,56));
 
-
         chooseCategoryLabel = new JLabel("Välj kategori");
         chooseCategoryLabel.setFont(new Font("Tahoma", Font.BOLD, 35));
 
         categoryBtnA = new JButton("A");
+        categoryBtnA.setBackground(Color.lightGray);
         categoryBtnB = new JButton("B");
+        categoryBtnB.setBackground(Color.lightGray);
         categoryBtnC = new JButton("C");
+        categoryBtnC.setBackground(Color.lightGray);
 
         categoryBtnA.setFocusable(false);
         categoryBtnB.setFocusable(false);
@@ -168,6 +174,10 @@ public class GameGUI extends JFrame implements ActionListener {
         answerB = new JButton("HejB");
         answerC = new JButton("HejC");
         answerD = new JButton("HejD");
+        answerA.setBackground(Color.lightGray);
+        answerB.setBackground(Color.lightGray);
+        answerC.setBackground(Color.lightGray);
+        answerD.setBackground(Color.lightGray);
         answerA.setFocusable(false);
         answerB.setFocusable(false);
         answerC.setFocusable(false);
@@ -226,6 +236,7 @@ public class GameGUI extends JFrame implements ActionListener {
         waitLabel.setHorizontalAlignment(JLabel.CENTER);
 
         waitPlayBtn = new JButton("Spela");
+        waitPlayBtn.setBackground(Color.lightGray);
         waitPlayBtn.setFocusable(false);
         waitPlayBtn.setEnabled(false); //false tills får spela
         waitPlayBtn.setPreferredSize(new Dimension(300, 100));
@@ -262,9 +273,12 @@ public class GameGUI extends JFrame implements ActionListener {
         winnerLabel.setHorizontalAlignment(JLabel.CENTER);
 
         playAgainBtn = new JButton("Spela igen");
-        playAgainBtn.setFocusable(false);
         quitGameBtn = new JButton("Avsluta");
+        playAgainBtn.setBackground(Color.lightGray);
+        quitGameBtn.setBackground(Color.lightGray);
+        playAgainBtn.setFocusable(false);
         quitGameBtn.setFocusable(false);
+
 
         playAgainBtn.addActionListener(l -> playAgain = true);
         quitGameBtn.addActionListener(l -> System.exit(0));
