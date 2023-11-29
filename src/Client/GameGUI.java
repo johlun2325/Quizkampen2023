@@ -374,4 +374,28 @@ public class GameGUI extends JFrame {
     public static void main(String[] args) {
         new GameGUI();
     }
+    public void showCategoryPanel() {
+        setCategoryPanel();
+        this.getContentPane().removeAll();
+        this.add(categoryPanel);
+        updateGUI();
+    }
+    public void showQuestionPanel() {
+        setCategoryPanel();
+        this.getContentPane().removeAll();
+        this.add(questionPanel);
+        updateGUI();
+    }
+    public void showWaitPanel() {
+        setCategoryPanel();
+        this.getContentPane().removeAll();
+        this.add(waitPanel);
+        updateGUI();
+    }
+    public void showFinalPanel() {
+        setCategoryPanel();
+        this.getContentPane().removeAll();
+        this.add(finalPanel);
+        updateGUI();
+    }
 }
