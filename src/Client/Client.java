@@ -1,8 +1,11 @@
 package Client;
 
+import UtilityClass.Question;
+
 import java.io.*;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.List;
 
 public class Client {
 
