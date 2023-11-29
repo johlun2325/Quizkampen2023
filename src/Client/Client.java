@@ -5,47 +5,59 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
-import java.util.Timer;
+import java.net.UnknownHostException;
 
 public class Client {
-    Timer timer;
-    private int timeRemaining;
-
-
 
     protected int port = 44456;
     protected String ipAdr = "127.0.0.1";
+    PrintWriter out;
+    BufferedReader in;
+    GameGUI gui;
 
-    public Client() {
+    public Client(){
 
+        try { Socket socket = new Socket(ipAdr, port);
+            out = new PrintWriter(socket.getOutputStream());
+            in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
-        try (Socket socket = new Socket(ipAdr, port);
-             PrintWriter out = new PrintWriter(socket.getOutputStream());
-             BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()))) {
-            //läsa och skriva till client och play()
-
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void play () {  //ENABLE
+        String fromServer;
+
+        try {
+            fromServer = in.readLine();
+            if (fromServer.equals("Ansluten")) {
+                gui = new GameGUI();
+                while (gui.name.isEmpty()) {
+                    Thread.sleep(1000);
+                }
+                out.println("Name:" + gui.name);
+                System.out.println("Name sent " + gui.name);
+               gui.showCategoryPanel();
+
+            }
 
 
+
+
+
+        } catch (Exception e) {  //FINALLY
+            e.printStackTrace();
+        }
     }
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
     public static void main(String[] args) {
-        new Client();
+        Client client = new Client();
+        client.play();
     }
 }
