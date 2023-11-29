@@ -142,7 +142,9 @@ public class Client {
                        gui.winnerLabel.setText("Du vann!");
                   }else if (gui.getPoints() < opponentP) {
                      gui.winnerLabel.setText("Du förlorade!");
-                  }
+                  }else {
+                       gui.winnerLabel.setText("Lika!");
+                   }
 
 
 
