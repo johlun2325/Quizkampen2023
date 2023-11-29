@@ -31,13 +31,13 @@ public class ServerGame extends Thread {
         }
 
 
-        String inputStringFromPlayer1 = "";
+        String inputCurrentPlayer = "";
 
         while (true) {
-            inputStringFromPlayer1 = currentPlayer.receiveString();
+            inputCurrentPlayer = currentPlayer.receiveString();
 
-            if (inputStringFromPlayer1.startsWith("NamePlayer1:")) {
-                String name = inputStringFromPlayer1.substring(12).trim(); //Spara namn
+            if (inputCurrentPlayer.startsWith("NamePlayer1:")) {
+                String name = inputCurrentPlayer.substring(12).trim(); //Spara namn
                 player1.setPlayer(name);
                 System.out.println(name + " Här är namnet för spelare 1");
 
@@ -48,8 +48,8 @@ public class ServerGame extends Thread {
                 }
                 currentPlayer = currentPlayer.getOpponent();  //BYTER CURRENT-PLAYER
 
-            } else if (inputStringFromPlayer1.startsWith("NamePlayer2:")) {
-                String name = inputStringFromPlayer1.substring(12).trim(); //Spara namn
+            } else if (inputCurrentPlayer.startsWith("NamePlayer2:")) {
+                String name = inputCurrentPlayer.substring(12).trim(); //Spara namn
                 player2.setPlayer(name);
                 System.out.println(name + " Här är namnet för spelare 2");
 
@@ -60,12 +60,12 @@ public class ServerGame extends Thread {
                 }
                 currentPlayer = currentPlayer.getOpponent(); //BYTER CURRENT-PLAYER
 
-            } else if (inputStringFromPlayer1.trim().equalsIgnoreCase("History")) {
+            } else if (inputCurrentPlayer.trim().equalsIgnoreCase("History")) {
                 System.out.println("Inuti else if equals(History)");
                 player1.sendObject(db.getHistory());
                 player2.sendObject(db.getHistory());
 
-            } else if (inputStringFromPlayer1.equals("Music")) {
+            } else if (inputCurrentPlayer.equals("Music")) {
                 player1.sendObject(db.getMusic());
                 player2.sendObject(db.getMusic());
             }

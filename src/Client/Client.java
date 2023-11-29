@@ -16,6 +16,7 @@ public class Client {
     protected GameGUI gui;
     Question utilityQ;
     //boolean questionAnswered = false;
+    boolean allQuestionIsAnswered = false;
 
     public Client() {
 
@@ -90,7 +91,6 @@ public class Client {
                     //} else if (fromServer.equals("History")) {
                 } else if (fromServer instanceof List) {
                     gui.showQuestionPanel();
-                    System.out.println("nu är vi i questionpanel");
                     List<?> list = (List<?>) fromServer;
                     if (!list.isEmpty() && list.get(0) instanceof Question) {
                         List<Question> questions = (List<Question>) list;
@@ -115,10 +115,14 @@ public class Client {
                         //gui.questionAnswered = false;
                         //gui.updateGUI();
                         }
-                    }
-                    out.println("Points:" + gui.getPoints());
-                    out.flush();
 
+                    //if (allQuestionIsAnswered) {
+                        out.println("Points:" + gui.getPoints());
+
+                        out.flush();
+                    System.out.println("Inuti Client, questions. Här är poängen när rundorna är slut:  " + gui.getPoints());
+
+                    //}
 
                     //här läser vi väl in frågorna?
 

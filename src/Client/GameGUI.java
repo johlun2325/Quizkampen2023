@@ -338,8 +338,8 @@ public class GameGUI extends JFrame {
         finalSouth = new JPanel(new FlowLayout(FlowLayout.CENTER));
         finalSouth.setBackground(new Color(111, 136, 111));
 
-        playerPoints1 = new JLabel("Player1 poäng");
-        playerPoints2 = new JLabel("Player2 poäng");
+        playerPoints1 = new JLabel("Player1 poäng: " + points);
+        playerPoints2 = new JLabel("Player2 poäng: " + points);
         playerPoints1.setFont(new Font("Tahoma", Font.BOLD, 20));
         playerPoints2.setFont(new Font("Tahoma", Font.BOLD, 20));
         playerPoints1.setForeground(Color.black);
