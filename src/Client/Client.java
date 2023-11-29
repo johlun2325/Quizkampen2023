@@ -15,9 +15,10 @@ public class Client {
     BufferedReader in;
     GameGUI gui;
 
-    public Client(){
+    public Client() {
 
-        try { Socket socket = new Socket(ipAdr, port);
+        try {
+            Socket socket = new Socket(ipAdr, port);
             out = new PrintWriter(socket.getOutputStream());
             in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
@@ -28,30 +29,36 @@ public class Client {
         }
     }
 
-    public void play () {  //ENABLE
+    public void play() {  //ENABLE
         String fromServer;
 
         try {
-            fromServer = in.readLine();
-            if (fromServer.equals("Ansluten")) {
-                gui = new GameGUI();
-                while(gui.name.isEmpty()){
-                    Thread.sleep(1000);
+            //fromServer = in.readLine();
+            gui = new GameGUI();
+
+
+            while (true) {
+                fromServer = in.readLine();
+                if (fromServer.equals("Ansluten")) {
+                    //gui = new GameGUI();
+                    while (gui.getNameFromGui().isEmpty()) {
+                        System.out.println(gui.getNameFromGui());
+                        Thread.sleep(5000);
+                    }
+                    out.println("Name:" + gui.name); //Ev. out.flush() efter
+                    out.flush();
+                    System.out.println("Name sent " + gui.name);
+                } else if (fromServer.equals("Category")) {
+                    System.out.println("Client: i kategori");
+                    out.println("History");
                 }
-                out.println("Name:" + gui.name);
-                System.out.println("Name sent " + gui.name);
             }
-
-
-
-
 
         } catch (Exception e) {  //FINALLY
             e.printStackTrace();
+
         }
     }
-
-
 
 
     public static void main(String[] args) {

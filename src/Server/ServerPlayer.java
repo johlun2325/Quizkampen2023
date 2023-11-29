@@ -1,6 +1,7 @@
 package Server;
 
 import javax.imageio.IIOException;
+import javax.swing.*;
 import java.io.*;
 import java.net.Socket;
 
@@ -11,6 +12,7 @@ public class ServerPlayer {
     private int point;
     private BufferedReader stringInput;
     private PrintWriter stringOutput;
+    String received;
 
 
     public ServerPlayer(Socket socket, String player, int point) {
@@ -42,12 +44,13 @@ public class ServerPlayer {
 
     public String receiveString() {
         try {
-            return stringInput.readLine();
+            received = stringInput.readLine();
         } catch (IOException e) {
             System.out.println("Fel i receiveString");
             e.printStackTrace();
         }
-        return "Fel i receiver";
+        JOptionPane.showMessageDialog(null, "Mess from ServerPlayer.receiveString"); //Hamnade här
+        return received;
     }
 
     public String getPlayer() {

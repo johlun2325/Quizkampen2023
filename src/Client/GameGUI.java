@@ -293,7 +293,7 @@ public class GameGUI extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == submitButton) {
-            if (name.isEmpty()) {
+            //if (name.isEmpty()) {
                 name = nameField.getText();
                 if (!name.isEmpty()) {
                     SwingUtilities.invokeLater(() -> {
@@ -307,7 +307,7 @@ public class GameGUI extends JFrame implements ActionListener {
             }
 
         }
-    }
+   // }
     public static void main(String[] args) {
         new GameGUI();
     }
