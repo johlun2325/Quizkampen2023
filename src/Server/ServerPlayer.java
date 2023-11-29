@@ -12,6 +12,7 @@ public class ServerPlayer {
     private int point;
     private BufferedReader stringInput;
     private PrintWriter stringOutput;
+    private ObjectOutputStream objectOutput;
     String received;
 
 
@@ -20,9 +21,9 @@ public class ServerPlayer {
         this.player = player;
         this.point = point;
         try {
-            //objectOutput = new ObjectOutputStream(socket.getOutputStream());
+            objectOutput = new ObjectOutputStream(socket.getOutputStream());
             stringInput = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            stringOutput = new PrintWriter(socket.getOutputStream(), true);
+            //stringOutput = new PrintWriter(socket.getOutputStream(), true);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -31,15 +32,16 @@ public class ServerPlayer {
 
     public void sendObject(Object object) {
         try {
-            ObjectOutputStream objectOutput = new ObjectOutputStream(socket.getOutputStream());
+            //objectOutput = new ObjectOutputStream(socket.getOutputStream());
             objectOutput.writeObject(object);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public void sendString(String mess) {
-        stringOutput.println(mess);
+    public void sendString(Object mess) throws IOException {
+        System.out.println("Sending mess med sendString" + mess.toString());
+        objectOutput.writeObject(mess);
     }
 
     public String receiveString() {

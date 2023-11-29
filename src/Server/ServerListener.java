@@ -12,6 +12,7 @@ public class ServerListener {
             while (true) {
                 ServerPlayer player1 = new ServerPlayer(ss.accept(), "Player1", 0);
                 ServerPlayer player2 = new ServerPlayer(ss.accept(), "Player2", 0);
+                System.out.println("Uppkoppling klar");
                 ServerGame game = new ServerGame(player1, player2);
                 game.start();
             }

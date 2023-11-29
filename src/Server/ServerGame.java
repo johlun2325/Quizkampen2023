@@ -1,12 +1,14 @@
 package Server;
 
 import javax.swing.*;
+import java.io.IOException;
 
 public class ServerGame extends Thread {
     ServerPlayer player1;
     ServerPlayer player2;
     ServerPlayer currentPlayer;
-    Database db;
+    Database db = new Database();
+    String name;
 
     public ServerGame(ServerPlayer player1, ServerPlayer player2) {
         this.player1 = player1;
@@ -18,9 +20,13 @@ public class ServerGame extends Thread {
 
     public void run() {
 
-        player1.sendString("Ansluten");
+        try {
+            player1.sendString("Ansluten");
+            player2.sendString("Ansluten");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
-        player2.sendString("Ansluten");
 
         //player1.sendString("Category");
 
@@ -30,15 +36,20 @@ public class ServerGame extends Thread {
         while (true) {
             inputStringFromClient = currentPlayer.receiveString();
             // debugg JOptionPane.showMessageDialog(null, inputStringFromClient + "FRÅN SERVERGAME");
-
+            System.out.println("RAD33" + inputStringFromClient);
             if (inputStringFromClient.startsWith("Name:")) {
-                String name = inputStringFromClient.substring(5).trim(); //Spara namn
+                name = inputStringFromClient.substring(5).trim(); //Spara namn
+                System.out.println(name + "Här är namnet");
 
                 currentPlayer.setPlayer(name);
-                currentPlayer.sendString("Category");
+                try {
+                    currentPlayer.sendString("Category");
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
                 //debugg JOptionPane.showMessageDialog(null, "Name received " + name);
-            } else if (inputStringFromClient.equals("History")) {
-                JOptionPane.showMessageDialog(null, "I ServerGame, else if History");
+            } else if (inputStringFromClient.trim().equals("History")) {
+                System.out.println("I else if history");
                 player1.sendObject(db.getHistory());
                 player2.sendObject(db.getHistory());
 

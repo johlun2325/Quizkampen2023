@@ -1,9 +1,6 @@
 package Client;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
+import java.io.*;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
@@ -12,7 +9,7 @@ public class Client {
     protected int port = 44456;
     protected String ipAdr = "127.0.0.1";
     PrintWriter out;
-    BufferedReader in;
+    ObjectInputStream in;
     GameGUI gui;
 
     public Client() {
@@ -20,7 +17,7 @@ public class Client {
         try {
             Socket socket = new Socket(ipAdr, port);
             out = new PrintWriter(socket.getOutputStream());
-            in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            in = new ObjectInputStream(socket.getInputStream());
 
         } catch (UnknownHostException e) {
             e.printStackTrace();
@@ -30,7 +27,7 @@ public class Client {
     }
 
     public void play() {  //ENABLE
-        String fromServer;
+        Object fromServer;
 
         try {
             //fromServer = in.readLine(); ö
@@ -38,7 +35,8 @@ public class Client {
 
 
             while (true) {
-                fromServer = in.readLine();
+                fromServer = in.readObject();
+                System.out.println("Från server" + fromServer);
                 if (fromServer.equals("Ansluten")) {
                     //gui = new GameGUI();
                     while (gui.getNameFromGui().isEmpty()) {
@@ -51,6 +49,7 @@ public class Client {
                 } else if (fromServer.equals("Category")) {
                     System.out.println("Client: i kategori");
                     out.println("History");
+                    out.flush();
                 }
             }
 
