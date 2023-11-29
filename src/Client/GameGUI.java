@@ -250,23 +250,26 @@ public class GameGUI extends JFrame {
             disableAllButtons();
 
 //            isCorrectAnswerToQuestion = isCorrectAnswer("Rätt svar från frågan", answerA.getText());
-            setColorToButtons(isCorrectAnswerToQuestion, answerA);
+            setColorToButtons(true, answerA);
 
         });
 
         answerB.addActionListener(l -> {
             answerToQuestion = answerB.getText();
             disableAllButtons();
+            setColorToButtons(false, answerB);
         });
 
         answerC.addActionListener(l -> {
             answerToQuestion = answerC.getText();
             disableAllButtons();
+            setColorToButtons(false, answerC);
         });
 
         answerD.addActionListener(l -> {
             answerToQuestion = answerD.getText();
             disableAllButtons();
+            setColorToButtons(false, answerD);
         });
 
 
