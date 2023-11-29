@@ -32,6 +32,7 @@ public class Client {
         String fromServer;
 
         try {
+
             fromServer = in.readLine();
             if (fromServer.equals("Ansluten")) {
                 gui = new GameGUI();
