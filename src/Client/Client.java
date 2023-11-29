@@ -11,9 +11,11 @@ public class Client {
 
     protected int port = 44456;
     protected String ipAdr = "127.0.0.1";
-    PrintWriter out;
-    ObjectInputStream in;
-    GameGUI gui;
+    protected PrintWriter out;
+    protected ObjectInputStream in;
+    protected GameGUI gui;
+    Question utilityQ;
+    boolean questionAnswered = false;
 
     public Client() {
 
@@ -40,8 +42,9 @@ public class Client {
             while (true) {
                 fromServer = in.readObject();
                 System.out.println("Från server" + fromServer);
+
                 if (fromServer.equals("Ansluten")) {
-                    //gui = new GameGUI();
+
                     while (gui.getNameFromGui().isEmpty()) {
                         System.out.println(gui.getNameFromGui());
                         Thread.sleep(5000);
@@ -49,6 +52,7 @@ public class Client {
                     out.println("Name:" + gui.name); //Ev. out.flush() efter
                     out.flush();
                     System.out.println("Name sent " + gui.name);
+
                 } else if (fromServer.equals("Category")) {
 
                     gui.showCategoryPanel();
