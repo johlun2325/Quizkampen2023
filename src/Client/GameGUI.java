@@ -56,6 +56,7 @@ public class GameGUI extends JFrame {
     protected boolean isCorrectAnswerToQuestion = false;
 
     TimerClass timer = new TimerClass();
+    private int points = 0;
 
 
     public GameGUI() {
