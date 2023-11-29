@@ -370,7 +370,7 @@ public class GameGUI extends JFrame {
     public String getAnswerToQuestionFromGui() {
         return answerToQuestion;
     }
-
+A
     public static void main(String[] args) {
         new GameGUI();
     }

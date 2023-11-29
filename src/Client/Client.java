@@ -33,7 +33,7 @@ public class Client {
         String fromServer;
 
         try {
-            //fromServer = in.readLine();
+            //fromServer = in.readLine(); ö
             gui = new GameGUI();
 
 
