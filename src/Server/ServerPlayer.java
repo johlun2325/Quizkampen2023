@@ -1,13 +1,12 @@
 package Server;
 
-import javax.imageio.IIOException;
 import java.io.*;
 import java.net.Socket;
 
 public class ServerPlayer {
     private ServerPlayer opponent;
     final private Socket socket;
-    private String player;
+    private String playerName;
     private int point;
     private BufferedReader stringInput;
     private PrintWriter stringOutput;
@@ -15,12 +14,14 @@ public class ServerPlayer {
 
     public ServerPlayer(Socket socket, String player, int point) {
         this.socket = socket;
-        this.player = player;
+        this.playerName = player;
         this.point = point;
         try {
             //objectOutput = new ObjectOutputStream(socket.getOutputStream());
             stringInput = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             stringOutput = new PrintWriter(socket.getOutputStream(), true);
+
+            stringOutput.println(playerName);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -50,12 +51,12 @@ public class ServerPlayer {
         return "Fel i receiver";
     }
 
-    public String getPlayer() {
-        return player;
+    public String getPlayerName() {
+        return playerName;
     }
 
-    public void setPlayer(String player) {
-        this.player = player;
+    public void setPlayerName(String playerName) {
+        this.playerName = playerName;
     }
 
     public int getPoint() {

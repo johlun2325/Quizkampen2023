@@ -20,7 +20,7 @@ public class ServerGame extends Thread {
 
         player2.sendString("Ansluten");
 
-        player1.sendString("Kategori");
+        player1.sendString("Kategori"); // ??
 
         //currentPlayer = player1;
         String inputStringFromClient;
@@ -31,9 +31,11 @@ public class ServerGame extends Thread {
             if (inputStringFromClient.startsWith("Name:")) {
                 String name = inputStringFromClient.substring(5).trim(); //Spara namn
 
-                currentPlayer.setPlayer(name);
+                currentPlayer.setPlayerName(name);
                 currentPlayer.sendString("Category");
-                System.out.println("Name received " + name);
+
+
+                System.out.println("Name received " + name); // syns ej från servergame
 
                 if (inputStringFromClient.equals("History")) {
                     player1.sendObject(db.getHistory());
