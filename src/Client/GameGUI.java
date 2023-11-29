@@ -379,6 +379,23 @@ public class GameGUI extends JFrame {
         this.revalidate();
         this.repaint();
     }
+    public void updateFinalPanel(int scorePlayer1, int scorePlayer2){
+        playerPoints1.setText("Player1 poäng: " + scorePlayer1 + points);
+        playerPoints2.setText("Player2 poäng: " + scorePlayer2 + points);
+
+       String winnerText = determineWinner(scorePlayer1, scorePlayer2);
+       winnerLabel.setText(winnerText);
+       showFinalPanel();
+    }
+    private String determineWinner(int scorePlayer1, int scorePlayer2){
+        if (scorePlayer1 > scorePlayer2){
+            return "Vinnaren är: player1";
+        } else if (scorePlayer1 < scorePlayer2) {
+            return "Vinnaren är: player2";
+        } else {
+            return "Spelet slutade oavgjort";
+        }
+    }
 
     private void disableAllButtons() {
       //  answerA.setEnabled(false);

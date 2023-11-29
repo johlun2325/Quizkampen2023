@@ -68,6 +68,16 @@ public class ServerGame extends Thread {
             } else if (inputCurrentPlayer.equals("Music")) {
                 player1.sendObject(db.getMusic());
                 player2.sendObject(db.getMusic());
+
+            } else if (inputCurrentPlayer.startsWith("Points:")) {
+                int points = Integer.parseInt(inputCurrentPlayer.substring(7).trim());
+                currentPlayer.setPoint(points);
+                System.out.println("Player " + currentPlayer.getPlayer() + " has " + points + "points");
+
+
+                currentPlayer.sendObject("Result" + currentPlayer.getOpponent().getPoint()); //skicka poängen här  i samma sträng? dela strängen i client och visa upp
+                //player2.sendObject("Result"); //Tog bort den här för att spelat ska fortsätta för spelaren som svarar klart sist, tror jag
+                currentPlayer = currentPlayer.getOpponent();
             }
 
             //if (inputStringFromClient.equals("Rätt"))
@@ -78,6 +88,9 @@ public class ServerGame extends Thread {
 
 
         //currentPlayer = currentPlayer.getOpponent();  //BYTER SPELARE
+    }
+    private String resultMessage(){
+        return "Result:Player1" + player1.getPoint() + ":Player2:" + player2.getPoint();
     }
 
     public List<Question> getListOfQuestions(List<Question> listFromDatabase) {
