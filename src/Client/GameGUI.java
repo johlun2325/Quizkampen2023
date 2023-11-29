@@ -65,8 +65,8 @@ public class GameGUI extends JFrame {
         setWaitPanel(); //*
         setFinalPanel(); //*
 
-        // this.add(startPanel);
-        this.add(backgroundQuestionPanel);
+         this.add(startPanel);
+        //this.add(backgroundQuestionPanel);
 
 
         this.setTitle("Välkommen till Quizkampen");
