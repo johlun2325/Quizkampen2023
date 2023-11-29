@@ -16,9 +16,9 @@ public class ServerPlayer {
     String received;
 
 
-    public ServerPlayer(Socket socket, String player, int point) {
+    public ServerPlayer(Socket socket, String playerName, int point) {
         this.socket = socket;
-        this.player = player;
+        this.player = playerName;
         this.point = point;
         try {
             objectOutput = new ObjectOutputStream(socket.getOutputStream());

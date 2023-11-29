@@ -1,6 +1,5 @@
 package Server;
 
-import javax.swing.*;
 import java.io.IOException;
 
 public class ServerGame extends Thread {
@@ -8,7 +7,8 @@ public class ServerGame extends Thread {
     ServerPlayer player2;
     ServerPlayer currentPlayer;
     Database db = new Database();
-    String name;
+    String player1name;
+    String player2name;
 
     public ServerGame(ServerPlayer player1, ServerPlayer player2) {
         this.player1 = player1;
@@ -32,16 +32,20 @@ public class ServerGame extends Thread {
 
         //currentPlayer = player1;
         String inputStringFromClient = "";
+        String opponentName = "";
 
         while (true) {
             inputStringFromClient = currentPlayer.receiveString();
+            opponentName = currentPlayer.getOpponent().receiveString();
             // debugg JOptionPane.showMessageDialog(null, inputStringFromClient + "FRÅN SERVERGAME");
             System.out.println("RAD33" + inputStringFromClient);
             if (inputStringFromClient.startsWith("Name:")) {
-                name = inputStringFromClient.substring(5).trim(); //Spara namn
-                System.out.println(name + "Här är namnet");
+                player1name = inputStringFromClient.substring(5).trim(); //Spara namn
+                player2name = inputStringFromClient.substring(5).trim();
+                System.out.println(player1name + "Här är namnet");
 
-                currentPlayer.setPlayer(name);
+                currentPlayer.setPlayer(player1name);
+                currentPlayer.getOpponent().setPlayer(player2name);
                 try {
                     currentPlayer.sendString("Category");
                 } catch (IOException e) {

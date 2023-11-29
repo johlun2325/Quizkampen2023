@@ -38,7 +38,6 @@ public class Client {
                 fromServer = in.readObject();
                 System.out.println("Från server" + fromServer);
                 if (fromServer.equals("Ansluten")) {
-                    //gui = new GameGUI();
                     while (gui.getNameFromGui().isEmpty()) {
                         System.out.println(gui.getNameFromGui());
                         Thread.sleep(5000);
@@ -47,6 +46,16 @@ public class Client {
                     out.flush();
                     System.out.println("Name sent " + gui.name);
                 } else if (fromServer.equals("Category")) {
+
+
+                    //Category
+                    //GUI chooseCategory
+                    //Här ska finnas en hårdkodad lista med alla kategorier
+                    //Slumpar tre och lägger på knappar
+                    //Skickar över kategorin som sträng med vald kategori
+
+
+
                     System.out.println("Client: i kategori");
                     out.println("History");
                     out.flush();
