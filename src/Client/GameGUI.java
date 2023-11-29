@@ -5,6 +5,8 @@ import UtilityClass.Question;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class GameGUI extends JFrame {
 
@@ -53,6 +55,8 @@ public class GameGUI extends JFrame {
     protected String answerToQuestion = "";
     protected boolean isCorrectAnswerToQuestion = false;
 
+    TimerClass timer = new TimerClass();
+
 
     public GameGUI() {
         setStartPanel(); //*
@@ -61,7 +65,9 @@ public class GameGUI extends JFrame {
         setWaitPanel(); //*
         setFinalPanel(); //*
 
-        this.add(startPanel);
+        // this.add(startPanel);
+        this.add(backgroundQuestionPanel);
+
 
         this.setTitle("Välkommen till Quizkampen");
         this.setSize(800, 600);
@@ -117,8 +123,8 @@ public class GameGUI extends JFrame {
             if (name.isEmpty()) {
                 name = nameField.getText();
                 if (!name.isEmpty()) {
-                        this.setTitle("Spelare: " + name);
-                        updateGUI();
+                    this.setTitle("Spelare: " + name);
+                    updateGUI();
                 } else {
                     namePromptText.setText("Du måste ange ett namn\n " +
                             "eller spela som gäst");
@@ -132,8 +138,8 @@ public class GameGUI extends JFrame {
             if (name.isEmpty()) {
                 name = guestButton.getText();
                 if (!name.isEmpty()) {
-                        this.setTitle("Spelare: " + name);
-                        updateGUI();
+                    this.setTitle("Spelare: " + name);
+                    updateGUI();
                 }
             }
         });
@@ -195,6 +201,31 @@ public class GameGUI extends JFrame {
         questionLabel.setFont(new Font("Tahoma", Font.BOLD, 20));
         questionLabel.setForeground(Color.black);
 
+
+        JLabel times = new JLabel("Tid kvar: " + timer.getTimeRemaining());
+        times.setFont(new Font("Tahoma", Font.BOLD, 20));
+        times.setForeground(Color.black);
+
+
+      //TIMER 30 SEKUNDER
+        timer.startTimer();
+        Timer timerUpdater = new Timer(1000, e -> {
+
+            int timeRemaining = timer.getTimeRemaining();
+            times.setText("Tid kvar:" + timeRemaining);
+
+            if (timeRemaining <= 0) {
+                // Timer reached 0, you can perform any additional actions here
+                times.setText("Time's up!");
+                ((Timer) e.getSource()).stop(); // Stop the timer
+
+            }
+        });
+        timerUpdater.start();
+        /////////////////////////////////////////////
+
+
+
         answerA = new JButton("HejA");
         answerB = new JButton("HejB");
         answerC = new JButton("HejC");
@@ -241,8 +272,10 @@ public class GameGUI extends JFrame {
 
 
         questionPanel.add(questionLabel);
+
         backgroundQuestionPanel.add(questionPanel, BorderLayout.NORTH);
         backgroundQuestionPanel.add(choicePanel, BorderLayout.SOUTH);
+        backgroundQuestionPanel.add(times, BorderLayout.CENTER);
 
     }
 

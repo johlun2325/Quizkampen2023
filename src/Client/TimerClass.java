@@ -10,20 +10,20 @@ public class TimerClass {
     public GameGUI gamegui;
 
     public TimerClass() {
-        timeRemaining = 30;
+        timeRemaining = 15;
 
         timer = new Timer(1000, e -> {
-            if (timeRemaining > 0) {
+            if (timeRemaining >0) {
                 timeRemaining--;
             } else {
-                // Restart the timer without stopping it
+
                timer.stop();
             }
         });
     }
 
     public void startTimer() {
-        timeRemaining = 30;
+        timeRemaining = 15;
         timer.start();
     }
 
