@@ -49,7 +49,7 @@ public class ServerPlayer {
             System.out.println("Fel i receiveString");
             e.printStackTrace();
         }
-        JOptionPane.showMessageDialog(null, "Mess from ServerPlayer.receiveString"); //Hamnade här
+        // debugg JOptionPane.showMessageDialog(null, "Mess from ServerPlayer.receiveString");
         return received;
     }
 

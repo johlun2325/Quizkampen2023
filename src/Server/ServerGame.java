@@ -29,15 +29,16 @@ public class ServerGame extends Thread {
 
         while (true) {
             inputStringFromClient = currentPlayer.receiveString();
-            JOptionPane.showMessageDialog(null, inputStringFromClient + "FRÅN SERVERGAME");
+            // debugg JOptionPane.showMessageDialog(null, inputStringFromClient + "FRÅN SERVERGAME");
 
             if (inputStringFromClient.startsWith("Name:")) {
                 String name = inputStringFromClient.substring(5).trim(); //Spara namn
 
                 currentPlayer.setPlayer(name);
                 currentPlayer.sendString("Category");
-                JOptionPane.showMessageDialog(null, "Name received " + name);
+                //debugg JOptionPane.showMessageDialog(null, "Name received " + name);
             } else if (inputStringFromClient.equals("History")) {
+                JOptionPane.showMessageDialog(null, "I ServerGame, else if History");
                 player1.sendObject(db.getHistory());
                 player2.sendObject(db.getHistory());
 
