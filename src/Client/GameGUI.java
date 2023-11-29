@@ -12,10 +12,13 @@ public class GameGUI extends JFrame implements ActionListener {
 
 
     protected JPanel startPanel;
+    protected JPanel northStartPanel;
+    protected JPanel centerStartPanel;
     protected JLabel namePromptText;
     protected JLabel gameNameLabel;
     protected JTextField nameField;
-    protected JButton submitButton;
+    protected JButton nameButton;
+    protected JButton guestButton;
 
     protected JPanel categoryPanel;
     protected JLabel chooseCategoryLabel;
@@ -55,16 +58,13 @@ public class GameGUI extends JFrame implements ActionListener {
 
 
     public GameGUI() {
-        setStartPanel(); //**
-        setCategoryPanel();
-        setQuestionPanel(); //*****
-        setWaitPanel();
-        setFinalPanel();
+        setStartPanel(); //*
+        setCategoryPanel(); //*
+        setQuestionPanel(); //*
+        setWaitPanel(); //*
+        setFinalPanel(); //*
 
-        //this.add(backgroundQuestionPanel);
         this.add(startPanel);
-//        this.add(categoryPanel);
-//        this.add(waitPanel);
 
         this.setTitle("Välkommen till Quizkampen");
         this.setSize(800, 600);
@@ -76,37 +76,54 @@ public class GameGUI extends JFrame implements ActionListener {
     }
 
     public void setStartPanel() {
-        startPanel = new JPanel(new GridLayout(4, 1));
-        startPanel.setBorder(new EmptyBorder(100, 120, 0, 120));
+
+        startPanel = new JPanel(new BorderLayout());
+        startPanel.setBackground(new Color(72,127,56));
+        startPanel.setBorder(new EmptyBorder(100, 100, 100, 100));
+        northStartPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        northStartPanel.setBackground(new Color(72,127,56));
+
+        centerStartPanel = new JPanel();
+        centerStartPanel.setLayout(new BoxLayout(centerStartPanel, BoxLayout.Y_AXIS));
+        centerStartPanel.setBorder(new EmptyBorder(60, 20, 220, 20));
+        centerStartPanel.setBackground(new Color(72,127,56));
 
         gameNameLabel = new JLabel("QUIZKAMPEN");
-        gameNameLabel.setFont(new Font("Tahoma", Font.BOLD, 45));
+        gameNameLabel.setFont(new Font("Tahoma", Font.BOLD, 55));
         gameNameLabel.setHorizontalAlignment(JLabel.CENTER);
+        gameNameLabel.setBackground(new Color(72,127,56));
+        gameNameLabel.setOpaque(true);
 
         namePromptText = new JLabel("Vänligen ange ett namn för att starta spelet");
-        namePromptText.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        namePromptText.setFont(new Font("Tahoma", Font.PLAIN, 20));
         namePromptText.setHorizontalAlignment(JLabel.CENTER);
 
         nameField = new JTextField();
         nameField.setFont(new Font("Tahoma", Font.BOLD, 25));
         nameField.setHorizontalAlignment(JTextField.CENTER);
-        nameField.setPreferredSize(new Dimension(300, 50));
 
-        //actionlistener
-        submitButton = new JButton("Spela");
-        submitButton.addActionListener(this);
+        nameButton = new JButton("Spela");
+        nameButton.setHorizontalAlignment(JButton.CENTER);
+        nameButton.addActionListener(this);
 
-        startPanel.add(gameNameLabel);
-        startPanel.add(namePromptText);
-        startPanel.add(nameField);
-        startPanel.add(submitButton);
-        pack();
+        guestButton = new JButton("Gäst");
+        guestButton.setHorizontalAlignment(JButton.CENTER);
+        guestButton.addActionListener(this);
+
+        northStartPanel.add(gameNameLabel);
+        centerStartPanel.add(namePromptText);
+        centerStartPanel.add(nameField);
+        centerStartPanel.add(nameButton);
+        centerStartPanel.add(guestButton);
+
+        startPanel.add(northStartPanel, BorderLayout.NORTH);
+        startPanel.add(centerStartPanel, BorderLayout.CENTER);
     }
 
     public void setCategoryPanel() {
 
         categoryPanel = new JPanel(new GridLayout(4, 1));
-        categoryPanel.setBorder(new EmptyBorder(100, 120, 0, 120));
+        categoryPanel.setBorder(new EmptyBorder(100, 220, 100, 220));
 
         chooseCategoryLabel = new JLabel("Välj kategori");
         chooseCategoryLabel.setFont(new Font("Tahoma", Font.BOLD, 35));
@@ -129,16 +146,17 @@ public class GameGUI extends JFrame implements ActionListener {
 
     public void setQuestionPanel() {
         backgroundQuestionPanel = new JPanel(new BorderLayout());
-        questionPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        backgroundQuestionPanel.setBorder(new EmptyBorder(100,50,100,50));
+        questionPanel = new JPanel(new FlowLayout());
         choicePanel = new JPanel(new GridLayout(2, 2));
 
-        questionLabel = new JLabel("Fråga");
+        questionLabel = new JLabel("Fråga..........");
         questionLabel.setFont(new Font("Tahoma", Font.BOLD, 20));
 
-        answerA = new JButton("Hej");
-        answerB = new JButton("Hej");
-        answerC = new JButton("Hej");
-        answerD = new JButton("Hej");
+        answerA = new JButton("HejA");
+        answerB = new JButton("HejB");
+        answerC = new JButton("HejC");
+        answerD = new JButton("HejD");
 
 
         answerA.addActionListener(l -> {
@@ -164,27 +182,23 @@ public class GameGUI extends JFrame implements ActionListener {
         });
 
 
-
         JButton[] buttons = {answerA, answerB, answerC, answerD};
         for (JButton button : buttons) {
             button.setFont(new Font("Tahoma", Font.BOLD, 15));
             button.setPreferredSize(new Dimension(300, 80));
-
-            questionPanel.add(questionLabel, BorderLayout.NORTH);
-            choicePanel.add(button, BorderLayout.SOUTH);
-
+            choicePanel.add(button);
         }
+
 
         questionPanel.add(questionLabel);
         backgroundQuestionPanel.add(questionPanel, BorderLayout.NORTH);
         backgroundQuestionPanel.add(choicePanel, BorderLayout.SOUTH);
 
-
     }
-
 
     public void setWaitPanel() {
         waitPanel = new JPanel(new GridLayout(2, 1));
+        waitPanel.setBorder(new EmptyBorder(100,50,100,50));
         waitPanelNorth = new JPanel(new FlowLayout(FlowLayout.CENTER));
         waitPanelSouth = new JPanel(new FlowLayout(FlowLayout.CENTER));
 
@@ -209,18 +223,19 @@ public class GameGUI extends JFrame implements ActionListener {
 
     public void setFinalPanel() {
         finalPanel = new JPanel(new GridLayout(2, 1));
+        finalPanel.setBorder(new EmptyBorder(100,100,100,100));
         finalNorth = new JPanel(new GridLayout(3, 1));
         finalSouth = new JPanel(new FlowLayout(FlowLayout.CENTER));
 
         playerPoints1 = new JLabel("Player1 poäng");
         playerPoints2 = new JLabel("Player2 poäng");
-        playerPoints1.setFont(new Font("Tahoma", Font.BOLD, 30));
-        playerPoints2.setFont(new Font("Tahoma", Font.BOLD, 30));
+        playerPoints1.setFont(new Font("Tahoma", Font.BOLD, 20));
+        playerPoints2.setFont(new Font("Tahoma", Font.BOLD, 20));
         playerPoints1.setHorizontalAlignment(JLabel.CENTER);
         playerPoints2.setHorizontalAlignment(JLabel.CENTER);
 
         winnerLabel = new JLabel("Vinnaren är : ");
-        winnerLabel.setFont(new Font("Tahoma", Font.BOLD, 30));
+        winnerLabel.setFont(new Font("Tahoma", Font.BOLD, 20));
         winnerLabel.setHorizontalAlignment(JLabel.CENTER);
 
         playAgainBtn = new JButton("Spela igen");
@@ -246,29 +261,27 @@ public class GameGUI extends JFrame implements ActionListener {
         this.repaint();
     }
 
-    private void disableAllButtons () {
+    private void disableAllButtons() {
         answerA.setEnabled(false);
         answerB.setEnabled(false);
         answerC.setEnabled(false);
         answerD.setEnabled(false);
     }
 
-    protected boolean isCorrectAnswer(Question question, String answer){
+    protected boolean isCorrectAnswer(Question question, String answer) {
         boolean isCorrectAnswer;
-        if (question.getCorrectAnswer().equalsIgnoreCase(answer)){
+        if (question.getCorrectAnswer().equalsIgnoreCase(answer)) {
             isCorrectAnswer = true;
-        }
-        else{
+        } else {
             isCorrectAnswer = false;
         }
         return isCorrectAnswer;
     }
 
-    protected void setColorToButtons(boolean isCorrectAnswer, JButton button){
-        if (isCorrectAnswer){
+    protected void setColorToButtons(boolean isCorrectAnswer, JButton button) {
+        if (isCorrectAnswer) {
             button.setBackground(Color.green);
-        }
-        else{
+        } else {
             button.setBackground(Color.red);
         }
     }
@@ -292,22 +305,34 @@ public class GameGUI extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == submitButton) {
+        if (e.getSource() == nameButton) {
             if (name.isEmpty()) {
                 name = nameField.getText();
                 if (!name.isEmpty()) {
                     SwingUtilities.invokeLater(() -> {
-                        this.setTitle("Player: " + name);
+                        this.setTitle("Spelare: " + name);
                         updateGUI();
                     });
                 } else {
-                    namePromptText.setText("Du måste ange ett namn");
+                    namePromptText.setText("Du måste ange ett namn\n "+
+                            "eller spela som gäst");
                     updateGUI();
                 }
             }
-
+        }
+        else if(e.getSource() == guestButton) {
+            if (name.isEmpty()) {
+                name = guestButton.getText();
+                if (!name.isEmpty()) {
+                    SwingUtilities.invokeLater(() -> {
+                        this.setTitle("Spelare: " + name);
+                        updateGUI();
+                    });
+                }
+            }
         }
     }
+
     public static void main(String[] args) {
         new GameGUI();
     }
