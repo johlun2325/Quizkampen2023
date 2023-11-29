@@ -51,7 +51,7 @@ public class ServerGame extends Thread {
             } else if (inputStringFromClient.trim().equals("History")) {
                 System.out.println("I else if history");
                 player1.sendObject(db.getHistory());
-                player2.sendObject(db.getHistory());
+               // player2.sendObject(db.getHistory());
 
             } else if (inputStringFromClient.equals("Music")) {
                 player1.sendObject(db.getMusic());
