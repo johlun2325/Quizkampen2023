@@ -5,13 +5,8 @@ import UtilityClass.Question;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 public class GameGUI extends JFrame {
-
 
     protected JPanel startPanel;
     protected JPanel northStartPanel;
@@ -66,7 +61,7 @@ public class GameGUI extends JFrame {
         setWaitPanel(); //*
         setFinalPanel(); //*
 
-        this.add(startPanel);
+        this.add(finalPanel);
 
         this.setTitle("Välkommen till Quizkampen");
         this.setSize(800, 600);
@@ -80,23 +75,26 @@ public class GameGUI extends JFrame {
     public void setStartPanel() {
 
         startPanel = new JPanel(new BorderLayout());
-        startPanel.setBackground(new Color(72, 127, 56));
         startPanel.setBorder(new EmptyBorder(100, 100, 100, 100));
+        startPanel.setBackground(new Color(111, 136, 111));
+
         northStartPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        northStartPanel.setBackground(new Color(72, 127, 56));
+        northStartPanel.setBackground(new Color(111, 136, 111));
 
         centerStartPanel = new JPanel();
         centerStartPanel.setLayout(new BoxLayout(centerStartPanel, BoxLayout.Y_AXIS));
         centerStartPanel.setBorder(new EmptyBorder(60, 20, 220, 20));
-        centerStartPanel.setBackground(new Color(72, 127, 56));
+        centerStartPanel.setBackground(new Color(111, 136, 111));
 
         gameNameLabel = new JLabel("QUIZKAMPEN");
+        gameNameLabel.setForeground(Color.black);
         gameNameLabel.setFont(new Font("Tahoma", Font.BOLD, 55));
         gameNameLabel.setHorizontalAlignment(JLabel.CENTER);
-        gameNameLabel.setBackground(new Color(72, 127, 56));
+        gameNameLabel.setBackground(new Color(111, 136, 111));
         gameNameLabel.setOpaque(true);
 
         namePromptText = new JLabel("Vänligen ange ett namn för att starta spelet");
+        namePromptText.setForeground(Color.black);
         namePromptText.setFont(new Font("Tahoma", Font.PLAIN, 20));
         namePromptText.setHorizontalAlignment(JLabel.CENTER);
 
@@ -155,10 +153,11 @@ public class GameGUI extends JFrame {
 
         categoryPanel = new JPanel(new GridLayout(4, 1));
         categoryPanel.setBorder(new EmptyBorder(100, 220, 100, 220));
-        categoryPanel.setBackground(new Color(72, 127, 56));
+        categoryPanel.setBackground(new Color(111, 136, 111));
 
         chooseCategoryLabel = new JLabel("Välj kategori");
         chooseCategoryLabel.setFont(new Font("Tahoma", Font.BOLD, 35));
+        chooseCategoryLabel.setForeground(Color.black);
 
         categoryBtnA = new JButton("A");
         categoryBtnA.setBackground(Color.lightGray);
@@ -186,14 +185,15 @@ public class GameGUI extends JFrame {
     public void setQuestionPanel() {
         backgroundQuestionPanel = new JPanel(new BorderLayout());
         backgroundQuestionPanel.setBorder(new EmptyBorder(100, 50, 100, 50));
-        backgroundQuestionPanel.setBackground(new Color(72, 127, 56));
+        backgroundQuestionPanel.setBackground(new Color(111, 136, 111));
 
         questionPanel = new JPanel(new FlowLayout());
-        questionPanel.setBackground(new Color(72, 127, 56));
+        questionPanel.setBackground(new Color(111, 136, 111));
         choicePanel = new JPanel(new GridLayout(2, 2));
 
         questionLabel = new JLabel("Fråga..........");
         questionLabel.setFont(new Font("Tahoma", Font.BOLD, 20));
+        questionPanel.setForeground(Color.black);
 
         answerA = new JButton("HejA");
         answerB = new JButton("HejB");
@@ -249,15 +249,16 @@ public class GameGUI extends JFrame {
     public void setWaitPanel() {
         waitPanel = new JPanel(new GridLayout(2, 1));
         waitPanel.setBorder(new EmptyBorder(100, 50, 100, 50));
-        waitPanel.setBackground(new Color(72, 127, 56));
+        waitPanel.setBackground(new Color(111, 136, 111));
 
         waitPanelNorth = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        waitPanelNorth.setBackground(new Color(72, 127, 56));
+        waitPanelNorth.setBackground(new Color(111, 136, 111));
         waitPanelSouth = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        waitPanelSouth.setBackground(new Color(72, 127, 56));
+        waitPanelSouth.setBackground(new Color(111, 136, 111));
 
         waitLabel = new JLabel("Väntar på motspelare...");
         waitLabel.setFont(new Font("Tahoma", Font.BOLD, 30));
+        waitLabel.setForeground(Color.black);
         waitLabel.setHorizontalAlignment(JLabel.CENTER);
 
         waitPlayBtn = new JButton("Spela");
@@ -278,23 +279,26 @@ public class GameGUI extends JFrame {
     public void setFinalPanel() {
         finalPanel = new JPanel(new GridLayout(2, 1));
         finalPanel.setBorder(new EmptyBorder(100, 100, 100, 100));
-        finalPanel.setBackground(new Color(72, 127, 56));
+        finalPanel.setBackground(new Color(111, 136, 111));
 
         finalNorth = new JPanel(new GridLayout(3, 1));
-        finalNorth.setBackground(new Color(72, 127, 56));
+        finalNorth.setBackground(new Color(111, 136, 111));
 
         finalSouth = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        finalSouth.setBackground(new Color(72, 127, 56));
+        finalSouth.setBackground(new Color(111, 136, 111));
 
         playerPoints1 = new JLabel("Player1 poäng");
         playerPoints2 = new JLabel("Player2 poäng");
         playerPoints1.setFont(new Font("Tahoma", Font.BOLD, 20));
         playerPoints2.setFont(new Font("Tahoma", Font.BOLD, 20));
+        playerPoints1.setForeground(Color.black);
+        playerPoints2.setForeground(Color.black);
         playerPoints1.setHorizontalAlignment(JLabel.CENTER);
         playerPoints2.setHorizontalAlignment(JLabel.CENTER);
 
         winnerLabel = new JLabel("Vinnaren är : ");
         winnerLabel.setFont(new Font("Tahoma", Font.BOLD, 20));
+        winnerLabel.setForeground(Color.black);
         winnerLabel.setHorizontalAlignment(JLabel.CENTER);
 
         playAgainBtn = new JButton("Spela igen");
