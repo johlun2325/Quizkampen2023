@@ -1,7 +1,10 @@
 package Server;
 
+import UtilityClass.Question;
+
 import javax.swing.*;
 import java.io.IOException;
+import java.util.List;
 
 public class ServerGame extends Thread {
     ServerPlayer player1;
@@ -29,31 +32,43 @@ public class ServerGame extends Thread {
 
 
         //player1.sendString("Category");
-
         //currentPlayer = player1;
-        String inputStringFromClient = "";
+        
+        
+        String inputStringFromPlayer1 = "";
+        String inputStringFromPlayer2 = "";
 
         while (true) {
-            inputStringFromClient = currentPlayer.receiveString();
-            // debugg JOptionPane.showMessageDialog(null, inputStringFromClient + "FRÅN SERVERGAME");
-            System.out.println("RAD33" + inputStringFromClient);
-            if (inputStringFromClient.startsWith("Name:")) {
-                name = inputStringFromClient.substring(5).trim(); //Spara namn
-                System.out.println(name + "Här är namnet");
+            inputStringFromPlayer1 = currentPlayer.receiveString();
+            //inputStringFromPlayer2 = currentPlayer.getOpponent().receiveString();
 
+            // debugg JOptionPane.showMessageDialog(null, inputStringFromClient + "FRÅN SERVERGAME");
+            System.out.println("RAD33" + inputStringFromPlayer1);
+
+            if (inputStringFromPlayer1.startsWith("Name:")) {
+                name = inputStringFromPlayer1.substring(5).trim(); //Spara namn
                 currentPlayer.setPlayer(name);
+                System.out.println(name + "Här är namnet spelare 1");
+
+                //name = inputStringFromPlayer2.substring(5).trim();
+                currentPlayer.getOpponent().setPlayer(name);
+                System.out.println(name + "Här är namnet spelare 2");
+
                 try {
                     currentPlayer.sendString("Category");
+                    currentPlayer.getOpponent().sendString("Wait");
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
                 //debugg JOptionPane.showMessageDialog(null, "Name received " + name);
-            } else if (inputStringFromClient.trim().equals("History")) {
-                System.out.println("I else if history");
+
+
+            } else if (inputStringFromPlayer1.trim().equalsIgnoreCase("History")) {
+                System.out.println("Inuti else if equals(History)");
                 player1.sendObject(db.getHistory());
                // player2.sendObject(db.getHistory());
 
-            } else if (inputStringFromClient.equals("Music")) {
+            } else if (inputStringFromPlayer1.equals("Music")) {
                 player1.sendObject(db.getMusic());
                 player2.sendObject(db.getMusic());
             }
@@ -66,12 +81,13 @@ public class ServerGame extends Thread {
 
 
         //currentPlayer = currentPlayer.getOpponent();  //BYTER SPELARE
-
-
     }
 
-
+    public List<Question> getListOfQuestions (List<Question> listFromDatabase){
+        return listFromDatabase;
+    }
 }
+
 
 //ett spel emd båda spelarna
 
