@@ -55,7 +55,7 @@ public class GameGUI extends JFrame {
     protected String answerToQuestion = "";
     protected boolean isCorrectAnswerToQuestion = false;
 
-    TimerClass timer = new TimerClass();
+    protected TimerClass timer = new TimerClass();
     private int points = 0;
     boolean questionAnswered = false;
 
