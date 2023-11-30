@@ -97,7 +97,7 @@ public class ServerGame extends Thread {
     }
 
 
-    private void loadProperties() {    //Läser in properties och sparar i int amountOfRounds och int amountOfQuestions
+    private void loadProperties() {    //Läser in properties och sparar i int amountOfRoundsFromConfig och int amountOfQuestionsFromConfig
         try (FileInputStream inputStream = new FileInputStream("config.properties")) {
             Properties p = new Properties();
 
