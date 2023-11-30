@@ -31,7 +31,7 @@ public class ServerGame extends Thread {
 
         try {
             player1.sendString("AnslutenPlayer1" + amountOfQuestionsFromConfig + amountOfRoundsFromConfig);
-            player2.sendString("AnslutenPlayer2");
+            player2.sendString("AnslutenPlayer2" + amountOfQuestionsFromConfig + amountOfRoundsFromConfig);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

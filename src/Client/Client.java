@@ -49,7 +49,7 @@ public class Client {
                 if (fromServer instanceof String && ((String) fromServer).startsWith("AnslutenPlayer1")) {
 
                     amountOfRounds = Integer.parseInt(((String) fromServer).substring(((String) fromServer).length() - 1).trim());
-                    amountOfQuestions = Integer.parseInt(((String) fromServer).substring(((String) fromServer).length() - 2,((String) fromServer).length() - 1).trim());
+                    amountOfQuestions = Integer.parseInt(((String) fromServer).substring(((String) fromServer).length() - 2, ((String) fromServer).length() - 1).trim());
                     System.out.println("Antal rundor: " + amountOfRounds);
                     System.out.println("Antal frågor per runda: " + amountOfQuestions);
 
@@ -63,7 +63,13 @@ public class Client {
                     System.out.println("Name sent " + gui.name);
 
 
-                } else if (fromServer.equals("AnslutenPlayer2")) {
+                } else if (fromServer instanceof String && ((String) fromServer).startsWith("AnslutenPlayer2")) {
+
+                    amountOfRounds = Integer.parseInt(((String) fromServer).substring(((String) fromServer).length() - 1).trim());
+                    amountOfQuestions = Integer.parseInt(((String) fromServer).substring(((String) fromServer).length() - 2, ((String) fromServer).length() - 1).trim());
+                    System.out.println("Antal rundor: " + amountOfRounds);
+                    System.out.println("Antal frågor per runda: " + amountOfQuestions);
+
                     while (gui.getNameFromGui().isEmpty()) {
                         System.out.println(gui.getNameFromGui());
                         Thread.sleep(5000);
@@ -105,7 +111,7 @@ public class Client {
                         List<Question> questions = (List<Question>) list;
                         System.out.println("Client inne i if fromServer instanceof List, Questions mottagna");
 
-                        for (int i = 0; i < 3; i++) {
+                        for (int i = 0; i < amountOfQuestions; i++) {
                             gui.questionLabel.setText(questions.get(i).getQuestion());
                             gui.answerA.setText(questions.get(i).getCorrectAnswer());
                             gui.answerB.setText(questions.get(i).getWrongAnswer1());
@@ -123,12 +129,12 @@ public class Client {
                         }
                         //gui.questionAnswered = false;
                         //gui.updateGUI();
-                        }
+                    }
 
                     //if (allQuestionIsAnswered) {
-                        out.println("Points:" + gui.getPoints());
+                    out.println("Points:" + gui.getPoints());
 
-                        out.flush();
+                    out.flush();
                     System.out.println("Inuti Client, questions. Här är poängen när rundorna är slut:  " + gui.getPoints());
 
                     //}
@@ -141,22 +147,18 @@ public class Client {
 
                     gui.showFinalPanel();
                     gui.playerPoints1.setText("Player1 poäng: " + gui.getPoints());
-                   gui.playerPoints2.setText("Player2 poäng: " + opponentPoints);
+                    gui.playerPoints2.setText("Player2 poäng: " + opponentPoints);
 
-                   int opponentP = Integer.parseInt(opponentPoints);
-
-
-
-                   if(gui.getPoints() > opponentP) {
-                       gui.winnerLabel.setText("Du vann!");
-                  }else if (gui.getPoints() < opponentP) {
-                     gui.winnerLabel.setText("Du förlorade!");
-                  }else {
-                       gui.winnerLabel.setText("Lika!");
-                   }
+                    int opponentP = Integer.parseInt(opponentPoints);
 
 
-
+                    if (gui.getPoints() > opponentP) {
+                        gui.winnerLabel.setText("Du vann!");
+                    } else if (gui.getPoints() < opponentP) {
+                        gui.winnerLabel.setText("Du förlorade!");
+                    } else {
+                        gui.winnerLabel.setText("Lika!");
+                    }
 
 
                 }
