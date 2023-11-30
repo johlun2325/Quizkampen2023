@@ -3,14 +3,18 @@ package Server;
 import UtilityClass.Question;
 
 import javax.swing.*;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.List;
+import java.util.Properties;
 
 public class ServerGame extends Thread {
     ServerPlayer player1;
     ServerPlayer player2;
     ServerPlayer currentPlayer;
     Database db = new Database();
+    int amountOfQuestionsFromConfig = 0;
+    int amountOfRoundsFromConfig = 0;
 
 
     public ServerGame(ServerPlayer player1, ServerPlayer player2) {
@@ -22,6 +26,8 @@ public class ServerGame extends Thread {
     }
 
     public void run() {
+
+        loadProperties();
 
         try {
             player1.sendString("AnslutenPlayer1");
@@ -89,6 +95,25 @@ public class ServerGame extends Thread {
 
         //currentPlayer = currentPlayer.getOpponent();  //BYTER SPELARE
     }
+
+
+    private void loadProperties() {    //Läser in properties och sparar i int amountOfRounds och int amountOfQuestions
+        try (FileInputStream inputStream = new FileInputStream("config.properties")) {
+            Properties p = new Properties();
+
+            p.load(inputStream);
+
+            amountOfRoundsFromConfig = Integer.parseInt(p.getProperty("rounds"));
+            amountOfQuestionsFromConfig = Integer.parseInt(p.getProperty("questions"));
+
+            System.out.println("Rounds: " + amountOfRoundsFromConfig);
+            System.out.println("Questions: " + amountOfQuestionsFromConfig);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
     private String resultMessage(){
         return "Result:Player1" + player1.getPoint() + ":Player2:" + player2.getPoint();
     }
