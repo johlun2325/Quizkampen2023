@@ -111,24 +111,29 @@ public class Client {
                         List<Question> questions = (List<Question>) list;
                         System.out.println("Client inne i if fromServer instanceof List, Questions mottagna");
 
-                        for (int i = 0; i < amountOfQuestions; i++) {
-                            gui.questionLabel.setText(questions.get(i).getQuestion());
-                            gui.answerA.setText(questions.get(i).getCorrectAnswer());
-                            gui.answerB.setText(questions.get(i).getWrongAnswer1());
-                            gui.answerC.setText(questions.get(i).getWrongAnswer2());
-                            gui.answerD.setText(questions.get(i).getWrongAnswer3());
-                            gui.questionAnswered = false;
-                            gui.updateGUI();
-                            while (!gui.questionAnswered) {
-                                try {
-                                    Thread.sleep(500);
-                                } catch (InterruptedException e) {
-                                    e.printStackTrace();
+
+                        for (int round = 0; round < amountOfRounds; round++) {
+                            //System.out.println("Round " + (round + 1));
+
+                            for (int i = 0; i < amountOfQuestions; i++) {
+                                gui.questionLabel.setText(questions.get(i).getQuestion());
+                                gui.answerA.setText(questions.get(i).getCorrectAnswer());
+                                gui.answerB.setText(questions.get(i).getWrongAnswer1());
+                                gui.answerC.setText(questions.get(i).getWrongAnswer2());
+                                gui.answerD.setText(questions.get(i).getWrongAnswer3());
+                                gui.questionAnswered = false;
+                                gui.updateGUI();
+                                while (!gui.questionAnswered) {
+                                    try {
+                                        Thread.sleep(500);
+                                    } catch (InterruptedException e) {
+                                        e.printStackTrace();
+                                    }
                                 }
                             }
+
+
                         }
-                        //gui.questionAnswered = false;
-                        //gui.updateGUI();
                     }
 
                     //if (allQuestionIsAnswered) {
