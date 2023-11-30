@@ -30,7 +30,7 @@ public class ServerGame extends Thread {
         loadProperties();
 
         try {
-            player1.sendString("AnslutenPlayer1");
+            player1.sendString("AnslutenPlayer1" + amountOfQuestionsFromConfig + amountOfRoundsFromConfig);
             player2.sendString("AnslutenPlayer2");
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -98,7 +98,7 @@ public class ServerGame extends Thread {
 
 
     private void loadProperties() {    //Läser in properties och sparar i int amountOfRoundsFromConfig och int amountOfQuestionsFromConfig
-        try (FileInputStream inputStream = new FileInputStream("config.properties")) {
+        try (FileInputStream inputStream = new FileInputStream("src/config.properties")) {
             Properties p = new Properties();
 
             p.load(inputStream);

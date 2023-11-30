@@ -17,6 +17,8 @@ public class Client {
     Question utilityQ;
     //boolean questionAnswered = false;
     boolean allQuestionIsAnswered = false;
+    int amountOfQuestions = 0;
+    int amountOfRounds = 0;
 
     public Client() {
 
@@ -44,7 +46,14 @@ public class Client {
                 fromServer = in.readObject();
                 System.out.println("Från server" + fromServer);
 
-                if (fromServer.equals("AnslutenPlayer1")) {
+                if (fromServer instanceof String && ((String) fromServer).startsWith("AnslutenPlayer1")) {
+
+                    amountOfRounds = Integer.parseInt(((String) fromServer).substring(((String) fromServer).length() - 1).trim());
+                    amountOfQuestions = Integer.parseInt(((String) fromServer).substring(((String) fromServer).length() - 2,((String) fromServer).length() - 1).trim());
+                    System.out.println("Antal rundor: " + amountOfRounds);
+                    System.out.println("Antal frågor per runda: " + amountOfQuestions);
+
+
                     while (gui.getNameFromGui().isEmpty()) {
                         System.out.println(gui.getNameFromGui());
                         Thread.sleep(5000);
